@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::group(['prefix' => 'test'], function () {
+    Route::get('companies' , [TestController::class, 'companies'])->name('companies');
+    Route::get('departments' , [TestController::class, 'departments'])->name('departments');
 });
