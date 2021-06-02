@@ -15,9 +15,14 @@ use App\Http\Controllers\TestController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->name('home');
 });
 Route::group(['prefix' => 'test'], function () {
-    Route::get('companies' , [TestController::class, 'companies'])->name('companies');
-    Route::get('departments' , [TestController::class, 'departments'])->name('departments');
+    Route::get('/' , [TestController::class, 'test_index'])->name('test.index');
+    Route::get('companies' , [TestController::class, 'companies'])->name('test.companies');
+    Route::get('departments' , [TestController::class, 'departments'])->name('test.departments');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
