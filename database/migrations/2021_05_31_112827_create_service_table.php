@@ -15,7 +15,17 @@ class CreateServiceTable extends Migration
     {
         Schema::create('service', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
+            $table->string("title", 64);
+            $table->unsignedBigInteger('currency_id');
+            $table->decimal('price',9,2);
+            $table->date('first_payment_time');
+            $table->date('last_payment_time');
             $table->timestamps();
+        });
+        Schema::table('service', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company');
+            $table->softDeletes();
         });
     }
 
