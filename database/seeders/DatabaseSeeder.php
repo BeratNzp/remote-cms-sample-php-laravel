@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CountryCityCountySeeder::class);
+        $this->call(CurrencySeeder::class);
+        $this->call(CompanyDepartmentSeeder::class);
         $this->call(UserSeeder::class);
     }
 }

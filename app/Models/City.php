@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Service extends Model
+class City extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'service';
+    protected $table = 'city';
     protected $primaryKey = 'id';
 
     /**
@@ -18,12 +18,16 @@ class Service extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'title', 'currency_id'
+        'country_id',
+        'title',
     ];
 
-
-    public function company()
+    public function country()
     {
-        return $this->hasOne(Company::class, 'id', 'company_id');
+        return $this->hasOne(Country::class, 'id', 'country_id');
+    }
+    public function counties()
+    {
+        return $this->hasMany(County::class, 'city_id', 'id');
     }
 }

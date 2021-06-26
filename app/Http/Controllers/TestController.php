@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
+    public function index()
+    {
+        $companies = Company::all();
+        return view('welcome');
+    }
     public function test_index()
     {
         $companies = Company::all();

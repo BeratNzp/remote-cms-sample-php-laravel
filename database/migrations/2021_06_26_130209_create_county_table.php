@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTicketTable extends Migration
+class CreateCountyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTicketTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket', function (Blueprint $table) {
+        Schema::create('county', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('department_id');
-            $table->string("subject", 64);
+            $table->string("title", 64);
+            $table->unsignedBigInteger('city_id');
             $table->timestamps();
-        });
-        Schema::table('ticket', function (Blueprint $table) {
-            $table->foreign('department_id')->references('id')->on('department');
             $table->softDeletes();
+        });
+        Schema::table('county', function (Blueprint $table) {
+            $table->foreign('city_id')->references('id')->on('city');
         });
     }
 
@@ -32,6 +32,8 @@ class CreateTicketTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket');
+        Schema::table('county', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -14,9 +14,7 @@ use App\Http\Controllers\TestController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome')->name('home');
-});
+Route::get('/' , [TestController::class, 'index'])->name('homepage');
 Route::group(['prefix' => 'test'], function () {
     Route::get('/' , [TestController::class, 'test_index'])->name('test.index');
     Route::get('companies' , [TestController::class, 'companies'])->name('test.companies');
