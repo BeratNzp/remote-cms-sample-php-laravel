@@ -1,43 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,700,800">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" href="images/favicon.ico" type="image/ico" />
-
-    <title>{{ config('app.name') }}</title>
-
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet">
-</head>
-
+@include('layouts.head')
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>{{ config('app.name') }}</span></a>
+                    <a href="#" class="site_title">
+                        <i class="fa fa-paw"></i>
+                        <span>{{ config('app.name') }}</span>
+                    </a>
                 </div>
 
                 <div class="clearfix"></div>
@@ -45,7 +16,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                     <div class="profile_pic">
-                        <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                        <img src="{{ asset("images/img.jpg") }}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
                         <span>Welcome,</span>
@@ -54,110 +25,10 @@
                 </div>
                 <!-- /menu profile quick info -->
 
-                <br />
+                <br/>
 
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <h3>General</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="index.html">Dashboard</a></li>
-                                    <li><a href="index2.html">Dashboard2</a></li>
-                                    <li><a href="index3.html">Dashboard3</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="form.html">General Form</a></li>
-                                    <li><a href="form_advanced.html">Advanced Components</a></li>
-                                    <li><a href="form_validation.html">Form Validation</a></li>
-                                    <li><a href="form_wizards.html">Form Wizard</a></li>
-                                    <li><a href="form_upload.html">Form Upload</a></li>
-                                    <li><a href="form_buttons.html">Form Buttons</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-desktop"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="general_elements.html">General Elements</a></li>
-                                    <li><a href="media_gallery.html">Media Gallery</a></li>
-                                    <li><a href="typography.html">Typography</a></li>
-                                    <li><a href="icons.html">Icons</a></li>
-                                    <li><a href="glyphicons.html">Glyphicons</a></li>
-                                    <li><a href="widgets.html">Widgets</a></li>
-                                    <li><a href="invoice.html">Invoice</a></li>
-                                    <li><a href="inbox.html">Inbox</a></li>
-                                    <li><a href="calendar.html">Calendar</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="tables.html">Tables</a></li>
-                                    <li><a href="tables_dynamic.html">Table Dynamic</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="chartjs.html">Chart JS</a></li>
-                                    <li><a href="chartjs2.html">Chart JS2</a></li>
-                                    <li><a href="morisjs.html">Moris JS</a></li>
-                                    <li><a href="echarts.html">ECharts</a></li>
-                                    <li><a href="other_charts.html">Other Charts</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                                    <li><a href="fixed_footer.html">Fixed Footer</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="menu_section">
-                        <h3>Live On</h3>
-                        <ul class="nav side-menu">
-                            <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="e_commerce.html">E-commerce</a></li>
-                                    <li><a href="projects.html">Projects</a></li>
-                                    <li><a href="project_detail.html">Project Detail</a></li>
-                                    <li><a href="contacts.html">Contacts</a></li>
-                                    <li><a href="profile.html">Profile</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="page_403.html">403 Error</a></li>
-                                    <li><a href="page_404.html">404 Error</a></li>
-                                    <li><a href="page_500.html">500 Error</a></li>
-                                    <li><a href="plain_page.html">Plain Page</a></li>
-                                    <li><a href="login.html">Login Page</a></li>
-                                    <li><a href="pricing_tables.html">Pricing Tables</a></li>
-                                </ul>
-                            </li>
-                            <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                                <ul class="nav child_menu">
-                                    <li><a href="#level1_1">Level One</a>
-                                    <li><a>Level One<span class="fa fa-chevron-down"></span></a>
-                                        <ul class="nav child_menu">
-                                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_1">Level Two</a>
-                                            </li>
-                                            <li><a href="#level2_2">Level Two</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#level1_2">Level One</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                        </ul>
-                    </div>
-
-                </div>
+                @include('layouts.sidebar')
                 <!-- /sidebar menu -->
 
                 <!-- /menu footer buttons -->
@@ -171,7 +42,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Lock">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -180,102 +51,13 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                    <ul class=" navbar-right">
-                        <li class="nav-item dropdown open" style="padding-left: 15px;">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
-                            </a>
-                            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                                <a class="dropdown-item"  href="javascript:;">
-                                    <span class="badge bg-red pull-right">50%</span>
-                                    <span>Settings</span>
-                                </a>
-                                <a class="dropdown-item"  href="javascript:;">Help</a>
-                                <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                            </div>
-                        </li>
-
-                        <li role="presentation" class="nav-item dropdown open">
-                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">6</span>
-                            </a>
-                            <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                                <li class="nav-item">
-                                    <a class="dropdown-item">
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item">
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item">
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="dropdown-item">
-                                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <div class="text-center">
-                                        <a class="dropdown-item">
-                                            <strong>See All Alerts</strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        @include('layouts.navbar')
         <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
             <!-- top tiles -->
-            <div class="row" style="display: inline-block;" >
+            <div class="row" style="display: inline-block;">
                 <div class="tile_count">
                     <div class="col-md-2 col-sm-4  tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
@@ -320,7 +102,8 @@
                                 <h3>Network Activities <small>Graph title sub-title</small></h3>
                             </div>
                             <div class="col-md-6">
-                                <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                <div id="reportrange" class="pull-right"
+                                     style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                                     <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                     <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
                                 </div>
@@ -341,7 +124,8 @@
                                     <p>Facebook Campaign</p>
                                     <div class="">
                                         <div class="progress progress_sm" style="width: 76%;">
-                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
+                                            <div class="progress-bar bg-green" role="progressbar"
+                                                 data-transitiongoal="80"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -349,7 +133,8 @@
                                     <p>Twitter Campaign</p>
                                     <div class="">
                                         <div class="progress progress_sm" style="width: 76%;">
-                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
+                                            <div class="progress-bar bg-green" role="progressbar"
+                                                 data-transitiongoal="60"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +144,8 @@
                                     <p>Conventional Media</p>
                                     <div class="">
                                         <div class="progress progress_sm" style="width: 76%;">
-                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
+                                            <div class="progress-bar bg-green" role="progressbar"
+                                                 data-transitiongoal="40"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -367,7 +153,8 @@
                                     <p>Bill boards</p>
                                     <div class="">
                                         <div class="progress progress_sm" style="width: 76%;">
-                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
+                                            <div class="progress-bar bg-green" role="progressbar"
+                                                 data-transitiongoal="50"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -380,7 +167,7 @@
                 </div>
 
             </div>
-            <br />
+            <br/>
 
             <div class="row">
 
@@ -393,7 +180,8 @@
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Settings 1</a>
                                         <a class="dropdown-item" href="#">Settings 2</a>
@@ -412,7 +200,8 @@
                                 </div>
                                 <div class="w_center w_55">
                                     <div class="progress">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
@@ -429,7 +218,8 @@
                                 </div>
                                 <div class="w_center w_55">
                                     <div class="progress">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
@@ -445,7 +235,8 @@
                                 </div>
                                 <div class="w_center w_55">
                                     <div class="progress">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
@@ -461,7 +252,8 @@
                                 </div>
                                 <div class="w_center w_55">
                                     <div class="progress">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
@@ -477,7 +269,8 @@
                                 </div>
                                 <div class="w_center w_55">
                                     <div class="progress">
-                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
                                             <span class="sr-only">60% Complete</span>
                                         </div>
                                     </div>
@@ -500,7 +293,8 @@
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Settings 1</a>
                                         <a class="dropdown-item" href="#">Settings 2</a>
@@ -528,7 +322,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                                        <canvas class="canvasDoughnut" height="140" width="140"
+                                                style="margin: 15px 10px 10px 0"></canvas>
                                     </td>
                                     <td>
                                         <table class="tile_info">
@@ -579,7 +374,8 @@
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Settings 1</a>
                                         <a class="dropdown-item" href="#">Settings 2</a>
@@ -597,10 +393,10 @@
                                     </li>
                                     <li><i class="fa fa-bars"></i><a href="#">Subscription</a>
                                     </li>
-                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
+                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a></li>
                                     <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
                                     </li>
-                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a> </li>
+                                    <li><i class="fa fa-bar-chart"></i><a href="#">Auto Renewal</a></li>
                                     <li><i class="fa fa-line-chart"></i><a href="#">Achievements</a>
                                     </li>
                                     <li><i class="fa fa-area-chart"></i><a href="#">Logout</a>
@@ -609,7 +405,8 @@
 
                                 <div class="sidebar-widget">
                                     <h4>Profile Completion</h4>
-                                    <canvas width="150" height="80" id="chart_gauge_01" class="" style="width: 160px; height: 100px;"></canvas>
+                                    <canvas width="150" height="80" id="chart_gauge_01" class=""
+                                            style="width: 160px; height: 100px;"></canvas>
                                     <div class="goal-wrapper">
                                         <span id="gauge-text" class="gauge-value pull-left">0</span>
                                         <span class="gauge-value pull-left">%</span>
@@ -633,7 +430,8 @@
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#">Settings 1</a>
                                         <a class="dropdown-item" href="#">Settings 2</a>
@@ -657,7 +455,10 @@
                                                 <div class="byline">
                                                     <span>13 hours ago</span> by <a>Jane Smith</a>
                                                 </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
+                                                    makers. They were where you met the producers that could fund your
+                                                    project, and if the buyers liked your flick, they’d pay to
+                                                    Fast-forward and… <a>Read&nbsp;More</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -671,7 +472,10 @@
                                                 <div class="byline">
                                                     <span>13 hours ago</span> by <a>Jane Smith</a>
                                                 </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
+                                                    makers. They were where you met the producers that could fund your
+                                                    project, and if the buyers liked your flick, they’d pay to
+                                                    Fast-forward and… <a>Read&nbsp;More</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -685,7 +489,10 @@
                                                 <div class="byline">
                                                     <span>13 hours ago</span> by <a>Jane Smith</a>
                                                 </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
+                                                    makers. They were where you met the producers that could fund your
+                                                    project, and if the buyers liked your flick, they’d pay to
+                                                    Fast-forward and… <a>Read&nbsp;More</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -699,7 +506,10 @@
                                                 <div class="byline">
                                                     <span>13 hours ago</span> by <a>Jane Smith</a>
                                                 </div>
-                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                                <p class="excerpt">Film festivals used to be do-or-die moments for movie
+                                                    makers. They were where you met the producers that could fund your
+                                                    project, and if the buyers liked your flick, they’d pay to
+                                                    Fast-forward and… <a>Read&nbsp;More</a>
                                                 </p>
                                             </div>
                                         </div>
@@ -714,7 +524,6 @@
                 <div class="col-md-8 col-sm-8 ">
 
 
-
                     <div class="row">
 
                         <div class="col-md-12 col-sm-12 ">
@@ -725,7 +534,8 @@
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="#">Settings 1</a>
                                                 <a class="dropdown-item" href="#">Settings 2</a>
@@ -785,7 +595,8 @@
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="#">Settings 1</a>
                                                 <a class="dropdown-item" href="#">Settings 2</a>
@@ -802,39 +613,48 @@
                                         <ul class="to_do">
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Schedule meeting with new client </p>
+                                                    <input type="checkbox" class="flat"> Schedule meeting with new
+                                                    client </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Create email address for new intern</p>
+                                                    <input type="checkbox" class="flat"> Create email address for new
+                                                    intern</p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Have IT fix the network printer</p>
+                                                    <input type="checkbox" class="flat"> Have IT fix the network printer
+                                                </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Copy backups to offsite location</p>
+                                                    <input type="checkbox" class="flat"> Copy backups to offsite
+                                                    location</p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                                                    <input type="checkbox" class="flat"> Food truck fixie locavors
+                                                    mcsweeney</p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Food truck fixie locavors mcsweeney</p>
+                                                    <input type="checkbox" class="flat"> Food truck fixie locavors
+                                                    mcsweeney</p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Create email address for new intern</p>
+                                                    <input type="checkbox" class="flat"> Create email address for new
+                                                    intern</p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Have IT fix the network printer</p>
+                                                    <input type="checkbox" class="flat"> Have IT fix the network printer
+                                                </p>
                                             </li>
                                             <li>
                                                 <p>
-                                                    <input type="checkbox" class="flat"> Copy backups to offsite location</p>
+                                                    <input type="checkbox" class="flat"> Copy backups to offsite
+                                                    location</p>
                                             </li>
                                         </ul>
                                     </div>
@@ -852,7 +672,8 @@
                                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                         </li>
                                         <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                               aria-expanded="false"><i class="fa fa-wrench"></i></a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="#">Settings 1</a>
                                                 <a class="dropdown-item" href="#">Settings 2</a>
@@ -953,58 +774,14 @@
             </div>
         </div>
         <!-- /page content -->
-
         <!-- footer content -->
-        <footer>
-            <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-            </div>
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+        @include('layouts.footer')
+        <!-- .footer content -->
+
     </div>
+
+
 </div>
-
-<!-- jQuery -->
-<script src="../vendors/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!-- FastClick -->
-<script src="../vendors/fastclick/lib/fastclick.js"></script>
-<!-- NProgress -->
-<script src="../vendors/nprogress/nprogress.js"></script>
-<!-- Chart.js -->
-<script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-<!-- gauge.js -->
-<script src="../vendors/gauge.js/dist/gauge.min.js"></script>
-<!-- bootstrap-progressbar -->
-<script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-<!-- iCheck -->
-<script src="../vendors/iCheck/icheck.min.js"></script>
-<!-- Skycons -->
-<script src="../vendors/skycons/skycons.js"></script>
-<!-- Flot -->
-<script src="../vendors/Flot/jquery.flot.js"></script>
-<script src="../vendors/Flot/jquery.flot.pie.js"></script>
-<script src="../vendors/Flot/jquery.flot.time.js"></script>
-<script src="../vendors/Flot/jquery.flot.stack.js"></script>
-<script src="../vendors/Flot/jquery.flot.resize.js"></script>
-<!-- Flot plugins -->
-<script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-<script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-<script src="../vendors/flot.curvedlines/curvedLines.js"></script>
-<!-- DateJS -->
-<script src="../vendors/DateJS/build/date.js"></script>
-<!-- JQVMap -->
-<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
-<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-<!-- bootstrap-daterangepicker -->
-<script src="../vendors/moment/min/moment.min.js"></script>
-<script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-<!-- Custom Theme Scripts -->
-<script src="{{ asset('js/custom.min.js') }}" defer></script>
-<!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
+@include('layouts.scripts')
 </body>
 </html>
