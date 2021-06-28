@@ -35,6 +35,7 @@
                     @if(\Illuminate\Support\Facades\Session::has('errors'))
                         <div class="alert alert-warning">
                             {{\Illuminate\Support\Facades\Session::get('errors')->first()}}
+
                         </div>
                     @endif
                     <div>
