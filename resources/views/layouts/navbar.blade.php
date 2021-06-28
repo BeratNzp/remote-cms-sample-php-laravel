@@ -8,13 +8,13 @@
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true"
                        id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset("images/img.jpg") }}" alt="">John Doe
+                        <img src="{{ asset("images/img.jpg") }}" alt="">{{ auth()->user()->name_surname() }}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#"> Profile</a>
+                        <a class="dropdown-item" href="#"> Profil</a>
                         <a class="dropdown-item" href="#">
                             <span class="badge bg-red pull-right">50%</span>
-                            <span>Settings</span>
+                            <span>Ayarlar</span>
                         </a>
 
 
@@ -22,7 +22,7 @@
                         <form method="POST" action="{{ route('user.logout_action') }}">
                             {{ csrf_field() }}
                             <button type="submit" class="dropdown-item" href=""><i
-                                    class="fa fa-sign-out pull-right"></i> Log Out
+                                    class="fa fa-sign-out pull-right"></i> Çıkış Yap
                             </button>
                         </form>
                     </div>

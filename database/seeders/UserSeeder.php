@@ -16,8 +16,9 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Admin',
-            'email' => 'info@portg.net',
+            'first_name' => 'Berat',
+            'last_name' => 'Niziplioğlu',
+            'email' => 'berat@portg.net',
             'password' => Hash::make('1985'),
         ]);
     }

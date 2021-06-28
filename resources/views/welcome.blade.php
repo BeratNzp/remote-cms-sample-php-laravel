@@ -1,4 +1,5 @@
 @include('layouts.head')
+@yield('')
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
@@ -20,7 +21,7 @@
                     </div>
                     <div class="profile_info">
                         <span>Hoşgeldiniz,</span>
-                        <h2>John Doe</h2>
+                        <h2>{{ auth()->user()->name_surname() }}</h2>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
