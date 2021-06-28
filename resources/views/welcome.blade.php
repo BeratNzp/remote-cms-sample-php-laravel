@@ -6,7 +6,7 @@
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
                     <a href="#" class="site_title">
-                        <i class="fa fa-paw"></i>
+                        <i class="fa fa-server"></i>
                         <span>{{ config('app.name') }}</span>
                     </a>
                 </div>
@@ -19,7 +19,7 @@
                         <img src="{{ asset("images/img.jpg") }}" alt="..." class="img-circle profile_img">
                     </div>
                     <div class="profile_info">
-                        <span>Welcome,</span>
+                        <span>Hoşgeldiniz,</span>
                         <h2>John Doe</h2>
                     </div>
                 </div>
@@ -33,16 +33,16 @@
 
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                    <a data-toggle="tooltip" data-placement="top" title="Settings">
+                    <a data-toggle="tooltip" data-placement="top" title="Site ayarları">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                    <a data-toggle="tooltip" data-placement="top" title="Siteyi görüntüle">
                         <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
+                    <a data-toggle="tooltip" data-placement="top" title="Siteye erişimi kilitle">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout" href="">
+                    <a data-toggle="tooltip" data-placement="top" title="Çıkış Yap" href="">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>

@@ -60,7 +60,22 @@
                         <ul class="nav child_menu">
                             <li>
                                 <a href="#">
-                                    <i class="fa fa-sticky-note-o"></i> Sayfalar
+                                    <i class="fa fa-calendar"></i> Randevular
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-id-card"></i> Danışanlar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-user"></i> Danışmanlar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-suitcase"></i> Tatil Günleri
                                 </a>
                             </li>
                         </ul>
@@ -145,7 +160,27 @@
                 <ul class="nav child_menu">
                     <li>
                         <a href="#">
-                            <i class="fa fa-ellipsis-h"></i> Ticket
+                            <i class="fa fa-tv"></i> Site Ayarları
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-hashtag"></i> Sosyal Ağ Ayarları
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-envelope-o"></i> eMail Ayarları
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-plug"></i> API Ayarları
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-database"></i> Veritabanı Ayarları
                         </a>
                     </li>
                 </ul>
@@ -157,7 +192,12 @@
                 <ul class="nav child_menu">
                     <li>
                         <a href="#">
-                            <i class="fa fa-ellipsis-h"></i> Ticket
+                            Veritabanı
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            cPanel
                         </a>
                     </li>
                 </ul>

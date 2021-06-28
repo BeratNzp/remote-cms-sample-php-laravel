@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function login_form()
     {
-        return view('user.login');
+        return view('layouts.user.login');
     }
 
     public function login_action()
@@ -62,9 +62,11 @@ class UserController extends Controller
             'token' => Str::random(64),
             'active_user' => 0
         ]);
-        $data = ([
+        /*
+         * $data = ([
             'user' => $user,
         ]);
+        */
         //Mail::to($user->email)->send(new UserRegisterEmail($data));
         return redirect()
             ->route('homepage')

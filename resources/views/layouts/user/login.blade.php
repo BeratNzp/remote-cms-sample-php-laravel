@@ -29,16 +29,26 @@
                 <h1><i class="fa fa-paw"></i> {{ config('app.name') }}</h1>
             </div>
             <section class="login_content">
-                <form>
+                <form class="form-horizontal" role="form" method="POST" action="{{ route('user.login_action') }}">
+                    {{ csrf_field() }}
                     <h1>Giriş</h1>
+                    @if($errors)
+                        <div class="alert">
+                            @foreach($errors as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </div>
+                    @endif
                     <div>
-                        <input type="text" class="form-control" placeholder="eMail" required=""/>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="eMail" required
+                               @if(!old('email')) autofocus @endif>
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Parola" required=""/>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Parola"
+                               required @if(!old('email')) autofocus @endif>
                     </div>
                     <div>
-                        <a class="btn btn-primary submit" href="#">Giriş Yap</a>
+                        <button type="submit" class="btn btn-primary submit" href="#">Giriş Yap</button>
                     </div>
                     <div>
                         <a class="btn btn-default" href="#reset">Parolanızı mı unuttunuz ?</a>

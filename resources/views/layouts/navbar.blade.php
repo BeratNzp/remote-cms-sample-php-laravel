@@ -6,26 +6,30 @@
         <nav class="nav navbar-nav">
             <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true"
+                    <a href="#" class="user-profile dropdown-toggle" aria-haspopup="true"
                        id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset("images/img.jpg") }}" alt="">John Doe
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="javascript:;"> Profile</a>
-                        <a class="dropdown-item" href="javascript:;">
+                        <a class="dropdown-item" href="#"> Profile</a>
+                        <a class="dropdown-item" href="#">
                             <span class="badge bg-red pull-right">50%</span>
                             <span>Settings</span>
                         </a>
 
 
-                        <a class="dropdown-item" href="javascript:;">Help</a>
-                        <a class="dropdown-item" href=""><i class="fa fa-sign-out pull-right"></i> Log
-                            Out</a>
+                        <a class="dropdown-item" href="#">Help</a>
+                        <form method="POST" action="{{ route('user.logout_action') }}">
+                            {{ csrf_field() }}
+                            <button type="submit" class="dropdown-item" href=""><i
+                                    class="fa fa-sign-out pull-right"></i> Log Out
+                            </button>
+                        </form>
                     </div>
                 </li>
 
                 <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                    <a href="#" class="dropdown-toggle info-number" id="navbarDropdown1"
                        data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge bg-green">6</span>
@@ -34,7 +38,8 @@
                         aria-labelledby="navbarDropdown1">
                         <li class="nav-item">
                             <a class="dropdown-item">
-                                <span class="image"><img src="{{ asset("images/img.jpg") }}" alt="Profile Image"/></span>
+                                <span class="image"><img src="{{ asset("images/img.jpg") }}"
+                                                         alt="Profile Image"/></span>
                                 <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -46,7 +51,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="dropdown-item">
-                                <span class="image"><img src="{{ asset("images/img.jpg") }}" alt="Profile Image"/></span>
+                                <span class="image"><img src="{{ asset("images/img.jpg") }}"
+                                                         alt="Profile Image"/></span>
                                 <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -58,7 +64,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="dropdown-item">
-                                <span class="image"><img src="{{ asset("images/img.jpg") }}" alt="Profile Image"/></span>
+                                <span class="image"><img src="{{ asset("images/img.jpg") }}"
+                                                         alt="Profile Image"/></span>
                                 <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -70,7 +77,8 @@
                         </li>
                         <li class="nav-item">
                             <a class="dropdown-item">
-                                <span class="image"><img src="{{ asset("images/img.jpg") }}" alt="Profile Image"/></span>
+                                <span class="image"><img src="{{ asset("images/img.jpg") }}"
+                                                         alt="Profile Image"/></span>
                                 <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
