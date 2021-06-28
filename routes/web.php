@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,16 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/' , [TestController::class, 'index'])->middleware('auth')->name('homepage');
+Route::get('/' , [HomeController::class, 'index'])->middleware('auth')->name('homepage');
 
-Route::get('/login', [UserController::class, 'login_form'])->middleware('guest')->name('login');
+Route::get('/login', [UserController::class, 'login_form'])->middleware('guest')->name('user.login');
 Route::post('/login', [UserController::class, 'login_action'])->middleware('guest')->name('user.login_action');
+
 Route::get('/register', [UserController::class, 'register_form'])->middleware('guest')->name('user.register_form');
 Route::post('/register', [UserController::class, 'register_action'])->middleware('guest')->name('user.register_action');
+
 Route::get('/activate/{token}', [UserController::class, 'activate'])->name('user.activate');
+
 Route::post('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
 Route::get('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
 
@@ -31,8 +35,9 @@ Route::get('/logout', [UserController::class, 'logout_action'])->middleware('aut
 
 
 Route::group(['prefix' => 'test'], function () {
-    Route::get('/' , [TestController::class, 'test_index'])->name('test.index');
-    Route::get('companies' , [TestController::class, 'companies'])->name('test.companies');
-    Route::get('login' , [TestController::class, 'login'])->name('test.login');
-    Route::get('departments' , [TestController::class, 'departments'])->name('test.departments');
+    Route::get('/' , [TestController::class, 'test_index'])->name('index');
+    Route::get('/test2' , [TestController::class, 'index'])->name('index2');
+    Route::get('companies' , [TestController::class, 'companies'])->name('companies');
+    Route::get('login' , [TestController::class, 'login'])->name('login');
+    Route::get('departments' , [TestController::class, 'departments'])->name('departments');
 });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -39,8 +38,6 @@ class UserController extends Controller
         auth()->logout();
         request()->session()->flush();
         request()->session()->regenerate();
-        Session::flash('message','Çıkış yapıldı');
-        Session::flash('alert','alert-danger');
         return redirect()->intended('/')->with('message_type', 'success')->with('message', 'Çıkış yapıldı.');
     }
 
@@ -69,8 +66,8 @@ class UserController extends Controller
          * $data = ([
             'user' => $user,
         ]);
+        Mail::to($user->email)->send(new UserRegisterEmail($data));
         */
-        //Mail::to($user->email)->send(new UserRegisterEmail($data));
         return redirect()
             ->route('homepage')
             ->with('message_type', 'success')

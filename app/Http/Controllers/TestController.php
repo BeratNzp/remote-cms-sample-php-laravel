@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\Department;
 
 class TestController extends Controller
 {
     public function index()
     {
-        return view('welcome');
-    }
-    public function test_index()
-    {
-        $companies = Company::all();
-        return view('test.companies', compact('companies'));
-    }
-    public function login()
-    {
-        return view('layouts.user.login');
-    }
-    public function companies()
-    {
-        $companies = Company::all();
-        return view('test.companies', compact('companies'));
+        return view('test2');
     }
     public function departments()
     {
