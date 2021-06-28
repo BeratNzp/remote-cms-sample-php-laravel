@@ -3,178 +3,164 @@
         <ul class="nav side-menu">
             <li>
                 <a href="javascript:void(0)">
-                    <i class="fa fa-home"></i> Home
+                    <i class="fa fa-home"></i> Anasayfa
                 </a>
             </li>
             <li>
                 <a>
-                    <i class="fa fa-edit"></i> Sayfa İşlemleri <span class="fa fa-chevron-down"></span>
+                    <i class="fa fa-edit"></i> İçerik İşlemleri <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="#">Kategoriler</a>
+                        <a href="#">
+                            <i class="fa fa-ellipsis-h"></i> Kategoriler
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Ürünler</a>
+                        <a href="#">
+                            <i class="fa fa-list"></i> Ürünler
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Varyantlar</a>
+                        <a href="#">
+                            <i class="fa fa-list-ol"></i> Varyantlar
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Dosyalar</a>
+                        <a href="#">
+                            <i class="fa fa-file"></i> Dosyalar
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Bloglar</a>
+                        <a href="#">
+                            <i class="fa fa-file-text"></i> Bloglar
+                        </a>
                     </li>
                     <li>
-                        <a href="#">Sayfalar</a>
+                        <a href="#">
+                            <i class="fa fa-sticky-note-o"></i> Sayfalar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-comment"></i> Yorumlar
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a>
-                    <i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span>
+                    <i class="fa fa-modx"></i> Modüller <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li>
-                        <a href="#">General Form</a>
-                    </li>
-                    <li>
-                        <a href="#">Advanced Components</a>
-                    </li>
-                    <li>
-                        <a href="#">Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="#">Form Wizard</a>
-                    </li>
-                    <li>
-                        <a href="#">Form Upload</a>
-                    </li>
-                    <li>
-                        <a href="#">Form Buttons</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-desktop"></i> UI Elements <span
-                        class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="#">General Elements</a>
-                    </li>
-                    <li>
-                        <a href="#">Media Gallery</a>
-                    </li>
-                    <li>
-                        <a href="#">Typography</a>
-                    </li>
-                    <li>
-                        <a href="#">Icons</a>
-                    </li>
-                    <li>
-                        <a href="#">Glyphicons</a>
-                    </li>
-                    <li>
-                        <a href="#">Widgets</a>
-                    </li>
-                    <li>
-                        <a href="#">Invoice</a>
-                    </li>
-                    <li>
-                        <a href="#">Inbox</a>
-                    </li>
-                    <li>
-                        <a href="#">Calendar</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="#">Tables</a>
-                    </li>
-                    <li>
-                        <a href="#">Table Dynamic</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-bar-chart-o"></i> Data Presentation <span
-                        class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="#">Chart JS</a>
-                    </li>
-                    <li>
-                        <a href="#">Chart JS2</a>
-                    </li>
-                    <li>
-                        <a href="#">Moris JS</a>
-                    </li>
-                    <li>
-                        <a href="#">ECharts</a>
-                    </li>
-                    <li>
-                        <a href="#">Other Charts</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="#">Fixed Sidebar</a>
-                    </li>
-                    <li>
-                        <a href="#">Fixed Footer</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-sitemap"></i> Multilevel Menu <span
-                        class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
-                        <a href="#">Level One</a>
                     <li>
                         <a>
-                            Level One<span class="fa fa-chevron-down"></span>
+                            <i class="fa fa-edit"></i> Randevu <span class="fa fa-chevron-down"></span>
                         </a>
                         <ul class="nav child_menu">
-                            <li class="sub_menu">
-                                <a href="#">Level Two
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-sticky-note-o"></i> Sayfalar
                                 </a>
-                            </li>
-                            <li>
-                                <a href="#">Level Two</a>
-                            </li>
-                            <li>
-                                <a href="#">Level Two</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">Level One</a>
+                        <a href="#">
+                            <i class="fa fa-envelope-o"></i> eMail
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-phone"></i> İletişim Formu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-image"></i> Slider
+                        </a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="javascript:void(0)">
-                    <i class="fa fa-laptop"></i> Landing Page <span
-                        class="label label-success pull-right">Coming Soon</span>
+                <a>
+                    <i class="fa fa-building"></i> Şirket İşlemleri <span class="fa fa-chevron-down"></span>
                 </a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-building"></i> Şirketler
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-sitemap"></i> Departmanlar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-id-card"></i> Müşteriler
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-user"></i> Hesap İşlemleri <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i> Kullanıcılar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-cog"></i> Yapılandırma
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-server"></i> Hesap Durumu
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-life-ring"></i> Destek <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-life-ring"></i> Ticket
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-cogs"></i> Ayarlar <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-ellipsis-h"></i> Ticket
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a>
+                    <i class="fa fa-cogs"></i> Geliştirici <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-ellipsis-h"></i> Ticket
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
