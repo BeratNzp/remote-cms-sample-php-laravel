@@ -32,7 +32,7 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('user.login_action') }}">
                     {{ csrf_field() }}
                     <h1>Giriş</h1>
-                    @if(\App\Models\User::has('errors'))
+                    @if(\Illuminate\Support\Facades\Session::has('errors'))
                         <div class="alert alert-warning">
                             {{\Illuminate\Support\Facades\Session::get('errors')->first()}}
                         </div>
