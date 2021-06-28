@@ -50,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->first_name.' '.$this->last_name;
     }
+    public function department()
+    {
+        $department = Department::where('id', $this->department_id)->first()->title;
+        $company = Company::where('id', $this->department_id)->first()->title;
+        return '['.$company.' '.$department.']';
+    }
+
 }

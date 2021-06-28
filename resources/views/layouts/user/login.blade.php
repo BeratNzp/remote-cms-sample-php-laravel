@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gentelella Alela! | </title>
+    <title>{{ config('app.name') }}</title>
 
     <link href="{{ asset("vendors/bootstrap/dist/css/bootstrap.min.css") }}" rel="stylesheet">
 
@@ -32,11 +32,9 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ route('user.login_action') }}">
                     {{ csrf_field() }}
                     <h1>Giriş</h1>
-                    @if($errors)
-                        <div class="alert">
-                            @foreach($errors as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                    @if(\App\Models\User::has('errors'))
+                        <div class="alert alert-warning">
+                            {{\Illuminate\Support\Facades\Session::get('errors')->first()}}
                         </div>
                     @endif
                     <div>

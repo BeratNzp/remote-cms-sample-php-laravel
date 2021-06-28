@@ -23,6 +23,7 @@ Route::get('/register', [UserController::class, 'register_form'])->middleware('g
 Route::post('/register', [UserController::class, 'register_action'])->middleware('guest')->name('user.register_action');
 Route::get('/activate/{token}', [UserController::class, 'activate'])->name('user.activate');
 Route::post('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
+Route::get('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
 
 
 

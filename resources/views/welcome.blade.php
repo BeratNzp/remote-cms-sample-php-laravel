@@ -1,5 +1,5 @@
+@section('page_title', 'Anasayfa')
 @include('layouts.head')
-@yield('')
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
@@ -22,6 +22,7 @@
                     <div class="profile_info">
                         <span>Hoşgeldiniz,</span>
                         <h2>{{ auth()->user()->name_surname() }}</h2>
+                        <small>{{ auth()->user()->department() }}</small>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->
@@ -43,7 +44,7 @@
                     <a data-toggle="tooltip" data-placement="top" title="Siteye erişimi kilitle">
                         <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Çıkış Yap" href="">
+                    <a data-toggle="tooltip" data-placement="top" title="Çıkış Yap" href="{{ route('user.logout_action') }}">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>

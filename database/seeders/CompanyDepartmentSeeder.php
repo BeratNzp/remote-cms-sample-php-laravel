@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\Company;
 use App\Models\Department;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyDepartmentSeeder extends Seeder
 {
@@ -19,7 +21,7 @@ class CompanyDepartmentSeeder extends Seeder
             'title' => 'PortG',
             'company_title' => 'PortG Bilişim',
         ]);
-        Department::create([
+        $department = Department::create([
             'company_id' => $company->id,
             'title' => 'Yönetim',
         ]);
@@ -30,6 +32,14 @@ class CompanyDepartmentSeeder extends Seeder
         Department::create([
             'company_id' => $company->id,
             'title' => 'Muhasebe',
+        ]);
+
+        User::create([
+            'department_id' => $department->id,
+            'first_name' => 'Berat',
+            'last_name' => 'Niziplioğlu',
+            'email' => 'berat@portg.net',
+            'password' => Hash::make('1985'),
         ]);
     }
 }

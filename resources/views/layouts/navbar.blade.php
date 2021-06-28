@@ -13,12 +13,10 @@
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#"> Profil</a>
                         <a class="dropdown-item" href="#">
-                            <span class="badge bg-red pull-right">50%</span>
                             <span>Ayarlar</span>
                         </a>
 
 
-                        <a class="dropdown-item" href="#">Help</a>
                         <form method="POST" action="{{ route('user.logout_action') }}">
                             {{ csrf_field() }}
                             <button type="submit" class="dropdown-item" href=""><i
@@ -91,7 +89,7 @@
                         <li class="nav-item">
                             <div class="text-center">
                                 <a class="dropdown-item">
-                                    <strong>See All Alerts</strong>
+                                    <strong>Tüm bildirimleri görüntüle</strong>
                                     <i class="fa fa-angle-right"></i>
                                 </a>
                             </div>

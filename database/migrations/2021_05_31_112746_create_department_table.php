@@ -23,6 +23,9 @@ class CreateDepartmentTable extends Migration
             $table->foreign('company_id')->references('id')->on('company');
             $table->softDeletes();
         });
+        Schema::table('user', function (Blueprint $table) {
+            $table->foreign('department_id')->references('id')->on('department');
+        });
     }
 
     /**
