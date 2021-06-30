@@ -701,3 +701,31 @@
         </div>
     </div>
 @endsection
+@section('page_scripts')
+    <!-- Chart.js --> {{-- Circle Chart --}}
+    <script src="{{ asset("vendors/Chart.js/dist/Chart.min.js") }}"></script>
+    <!-- Skycons --> {{-- Weather --}}
+    <script src="{{ asset("vendors/skycons/skycons.js") }}"></script>
+    <!-- gauge.js -->
+    <script src="{{ asset("vendors/gauge.js/dist/gauge.min.js") }}"></script>
+    <!-- Flot -->
+    <script src="{{ asset("vendors/Flot/jquery.flot.js") }}"></script>
+    <script src="{{ asset("vendors/Flot/jquery.flot.pie.js") }}"></script>
+    <script src="{{ asset("vendors/Flot/jquery.flot.time.js") }}"></script>
+    <script src="{{ asset("vendors/Flot/jquery.flot.stack.js") }}"></script>
+    <script src="{{ asset("vendors/Flot/jquery.flot.resize.js") }}"></script>
+
+    <!-- Flot plugins -->
+    <script src="{{ asset("vendors/flot.orderbars/js/jquery.flot.orderBars.js") }}"></script>
+    <script src="{{ asset("vendors/flot-spline/js/jquery.flot.spline.min.js") }}"></script>
+    <script src="{{ asset("vendors/flot.curvedlines/curvedLines.js") }}"></script>
+    <!-- DateJS -->
+    <script src="{{ asset("vendors/DateJS/build/date.js") }}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ asset("vendors/moment/min/moment.min.js") }}"></script>
+    <script src="{{ asset("vendors/bootstrap-daterangepicker/daterangepicker.js") }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ asset("vendors/jqvmap/dist/jquery.vmap.js") }}"></script>
+    <script src="{{ asset("vendors/jqvmap/dist/maps/jquery.vmap.world.js") }}"></script>
+    <script src="{{ asset("vendors/jqvmap/examples/js/jquery.vmap.sampledata.js") }}"></script>
+@endsection

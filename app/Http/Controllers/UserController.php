@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Http\Requests\UserLoginRequest;
 
 class UserController extends Controller
 {
@@ -15,23 +16,38 @@ class UserController extends Controller
 
     public function login_form()
     {
-        return view('layouts.user.login');
+        return view('user.login');
     }
 
-    public function login_action()
+    public function login_action(UserLoginRequest $request)
     {
+        /*
         $this->validate(request(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
+        */
+
+
         if (auth()->attempt(['email' => request('email'), 'password' => request('password')], request()->has('remember_me'))) {
             request()->session()->regenerate();
-            return redirect()->intended('/');
+            //return redirect()->intended('/');
+            $messages = [
+                'status' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Yönlendiriliyorsunuz ...',
+            ];
         } else {
-            $errors = ['email' => 'Kullanıcı adı veya parola hatalı !'];
-            return back()->withErrors($errors);
+            $messages = [
+                'status' => 'error',
+                'title' => 'Hata',
+                'message' => 'Kullanıcı adı veya parola hatalı !',
+            ];
         }
+        return response()->json(['messages' => $messages]);
+
     }
+
 
     public function logout_action()
     {

@@ -18,7 +18,7 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/' , [HomeController::class, 'index'])->middleware('auth')->name('homepage');
 
-Route::get('/login', [UserController::class, 'login_form'])->middleware('guest')->name('user.login');
+Route::get('/login', [UserController::class, 'login_form'])->middleware('guest')->name('login');
 Route::post('/login', [UserController::class, 'login_action'])->middleware('guest')->name('user.login_action');
 
 Route::get('/register', [UserController::class, 'register_form'])->middleware('guest')->name('user.register_form');
@@ -35,9 +35,9 @@ Route::get('/logout', [UserController::class, 'logout_action'])->middleware('aut
 
 
 Route::group(['prefix' => 'test'], function () {
-    Route::get('/' , [TestController::class, 'test_index'])->name('index');
-    Route::get('/test2' , [TestController::class, 'index'])->name('index2');
-    Route::get('companies' , [TestController::class, 'companies'])->name('companies');
-    Route::get('login' , [TestController::class, 'login'])->name('login');
-    Route::get('departments' , [TestController::class, 'departments'])->name('departments');
+    Route::get('/' , [TestController::class, 'test_index'])->name('test.index');
+    Route::get('/test2' , [TestController::class, 'index'])->name('test.index2');
+    Route::get('companies' , [TestController::class, 'companies'])->name('test.companies');
+    Route::get('login' , [TestController::class, 'login'])->name('test.login');
+    Route::get('departments' , [TestController::class, 'departments'])->name('test.departments');
 });
