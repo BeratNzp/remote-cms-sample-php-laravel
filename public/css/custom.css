@@ -2772,7 +2772,17 @@ legend {
 
 .form-control-feedback.left {
     border-right: 1px solid #ccc;
-    left: 13px; }
+    left: 13px;
+    position: absolute;
+    margin-top: 8px;
+    height: 23px;
+    color: #bbb;
+    line-height: 24px;
+    font-size: 15px;
+    top: 0px;
+    width: 34px;
+    text-align: center;
+}
 
 .form-control-feedback.right {
     border-left: 1px solid #ccc;

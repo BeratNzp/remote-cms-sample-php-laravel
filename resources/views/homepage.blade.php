@@ -1,4 +1,5 @@
 @extends('master')
+@section('page_title', 'Anasayfa')
 @section('page_content')
     <!-- top tiles -->
     <div class="row" style="display: inline-block;">

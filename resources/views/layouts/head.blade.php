@@ -19,15 +19,14 @@
     <!-- Custom Theme Style -->
     <link href="{{ asset('css/custom.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{ asset("vendors/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet">
+    <link href="{{ asset("vendors/fontawesome/css/font-awesome.min.css") }}" rel="stylesheet">
+    {{--<link href="{{ asset("vendors/fontawesome-5-15-3/css/all.css") }}" rel="stylesheet">--}}
+    {{--<link href="{{ asset("vendors/font-awesome/css/font-awesome.min.css") }}" rel="stylesheet">--}}
     <!-- iCheck -->
     <link href="{{ asset("vendors/iCheck/skins/flat/green.css") }}" rel="stylesheet">
-
-
-
     <!-- JQVMap -->
     <link href="{{ asset("vendors/jqvmap/dist/jqvmap.min.css") }}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{ asset("vendors/bootstrap-daterangepicker/daterangepicker.css") }}" rel="stylesheet">
-
+    @yield('page_head')
 </head>

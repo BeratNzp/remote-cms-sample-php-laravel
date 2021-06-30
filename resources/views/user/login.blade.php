@@ -38,7 +38,7 @@
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary submit" id="submitLogin" href="#">Giriş Yap
+                        <button type="submit" class="btn btn-primary submit" id="submit_button" href="#">Giriş Yap
                         </button>
                         <span class="help-block"></span>
                     </div>
@@ -61,10 +61,12 @@
 <script src="{{ asset("vendors/jquery/dist/jquery.min.js") }}"></script>
 <script type="text/javascript">
     $('#login_form').submit(function (e) {
-        $('#submitLogin').prop('disabled', true);
-        setTimeout(function() {
-            $('#submitLogin').prop('disabled', false);
-        }, 3000); // 3 seconds
+        $('#submit_button').prop('disabled', true);
+        $('#submit_button').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}">');
+        setTimeout(function () {
+            $('#submit_button').prop('disabled', false);
+            $('#submit_button').html('Kaydet');
+        }, 2000);
         $("#login_form #messages").html(null);
         var inputs = $('#login_form .form-group');
         inputs.removeClass('has-error');
@@ -93,10 +95,10 @@
                     delay: 3000,
                     styling: 'bootstrap3'
                 });
-                if(data.messages.status === 'success'){
+                if (data.messages.status === 'success') {
                     setTimeout(function () {
                         location.reload();
-                    }, 3000);
+                    }, 1500);
                 }
             },
             error: function (data) {

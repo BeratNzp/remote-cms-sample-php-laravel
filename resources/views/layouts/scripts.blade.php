@@ -13,4 +13,6 @@
 <script src="{{ asset("vendors/iCheck/icheck.min.js") }}"></script>
 <!-- FastClick -->
 <script src="{{ asset("vendors/fastclick/lib/fastclick.js") }}"></script>
+<!-- PNotify -->
+<script src="{{ asset("vendors/pnotify/dist/pnotify.js") }}"></script>
 @yield('page_scripts')

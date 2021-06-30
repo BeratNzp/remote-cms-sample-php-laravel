@@ -2,7 +2,7 @@
     <div class="menu_section">
         <ul class="nav side-menu">
             <li>
-                <a href="javascript:void(0)">
+                <a href="{{ route('homepage') }}">
                     <i class="fa fa-home"></i> Anasayfa
                 </a>
             </li>
@@ -206,3 +206,19 @@
     </div>
 </div>
 <!-- /sidebar menu -->
+<!-- sidebar bottom buttons -->
+<div class="sidebar-footer hidden-small">
+    <a data-toggle="tooltip" data-placement="top" title="Site ayarları">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Siteyi görüntüle">
+        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Siteye erişimi kilitle">
+        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+    </a>
+    <a data-toggle="tooltip" data-placement="top" title="Çıkış Yap" href="{{ route('user.logout_action') }}">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+    </a>
+</div>
+<!-- .sidebar bottom buttons -->
