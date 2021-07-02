@@ -35,10 +35,38 @@ class CompanyDepartmentSeeder extends Seeder
         ]);
 
         User::create([
+            'company_id' => $company->id,
             'department_id' => $department->id,
             'first_name' => 'Berat',
             'last_name' => 'Niziplioğlu',
             'email' => 'berat@portg.net',
+            'password' => Hash::make('1985'),
+        ]);
+
+
+        $company = Company::create([
+            'title' => 'X',
+            'company_title' => 'X Firması',
+        ]);
+        $department = Department::create([
+            'company_id' => $company->id,
+            'title' => 'Y',
+        ]);
+        Department::create([
+            'company_id' => $company->id,
+            'title' => 'Z',
+        ]);
+        Department::create([
+            'company_id' => $company->id,
+            'title' => 'T',
+        ]);
+
+        User::create([
+            'company_id' => $company->id,
+            'department_id' => $department->id,
+            'first_name' => 'Ali',
+            'last_name' => 'Kutay',
+            'email' => 'ali@x.net',
             'password' => Hash::make('1985'),
         ]);
     }

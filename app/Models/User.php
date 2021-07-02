@@ -25,6 +25,8 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'company_id',
+        'department_id',
     ];
 
     /**
@@ -48,13 +50,15 @@ class User extends Authenticatable
 
     public function name_surname()
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
+
     public function department()
     {
         $department = Department::where('id', $this->department_id)->first()->title;
-        $company = Company::where('id', $this->department_id)->first()->title;
-        return '['.$company.' '.$department.']';
+        //$company = Company::where('id', $this->company_id)->first()->title;
+        //return '[' . $company . ' ' . $department . ']';
+        return '[' . ' ' . $department . ']';
     }
 
 }

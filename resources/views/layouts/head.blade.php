@@ -28,5 +28,7 @@
     <link href="{{ asset("vendors/jqvmap/dist/jqvmap.min.css") }}" rel="stylesheet"/>
     <!-- bootstrap-daterangepicker -->
     <link href="{{ asset("vendors/bootstrap-daterangepicker/daterangepicker.css") }}" rel="stylesheet">
+    <!-- pnotify -->
+    <link href="{{ asset("vendors/pnotify/dist/pnotify.css") }}" rel="stylesheet">
     @yield('page_head')
 </head>

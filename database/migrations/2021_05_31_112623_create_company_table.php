@@ -22,6 +22,9 @@ class CreateCompanyTable extends Migration
         Schema::table('company', function (Blueprint  $table) {
             $table->softDeletes();
         });
+        Schema::table('user', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('company');
+        });
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserLoginRequest extends FormRequest
+class CompanyCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +16,11 @@ class UserLoginRequest extends FormRequest
         return true;
     }
 
-
     public function attributes()
     {
         return [
-            'email' => 'Email',
-            'password' => 'Parola',
+            'title' => 'Marka',
+            'company_title' => 'Şirket Ünvanı',
         ];
     }
 
@@ -33,8 +32,8 @@ class UserLoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            'title' => 'required',
+            'company_title' => 'required',
         ];
     }
 }

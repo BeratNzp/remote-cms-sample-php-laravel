@@ -19,6 +19,8 @@ class UserEditRequest extends FormRequest
     public function attributes()
     {
         return [
+            'company_id' => 'Şirket',
+            'department_id' => 'Departman',
             'first_name' => 'İsim',
             'last_name' => 'Soyisim',
             'email' => 'Email',
@@ -34,6 +36,8 @@ class UserEditRequest extends FormRequest
     public function rules()
     {
         return [
+            'company_id' => 'required',
+            'department_id' => 'required',
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
             'email' => 'required|email',

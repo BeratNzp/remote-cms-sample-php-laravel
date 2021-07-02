@@ -30,7 +30,7 @@
                     {{ csrf_field() }}
                     <h1>Giriş</h1>
                     <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="eMail">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="eMail" autofocus>
                         <span class="help-block"></span>
                     </div>
                     <div class="form-group">
@@ -97,7 +97,7 @@
                 });
                 if (data.messages.status === 'success') {
                     setTimeout(function () {
-                        location.reload();
+                        window.location.replace("{{ route("homepage") }}");
                     }, 1500);
                 }
             },

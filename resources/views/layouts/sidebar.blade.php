@@ -103,7 +103,7 @@
                 </a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="#">
+                        <a href="{{ route("company.list") }}">
                             <i class="fa fa-building"></i> Şirketler
                         </a>
                     </li>
