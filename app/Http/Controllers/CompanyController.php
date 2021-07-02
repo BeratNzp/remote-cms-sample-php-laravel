@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CompanyCreateRequest;
+use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\Department;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Company;
 
@@ -27,7 +26,7 @@ class CompanyController extends Controller
         return $company->id;
     }
 
-    public function edit_action(CompanyCreateRequest $request)
+    public function update(CompanyUpdateRequest $request)
     {
         $company = Company::find($request->id);
         $company->update([
@@ -51,7 +50,7 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function getCompanyDetail(Request $request)
+    public function detail(Request $request)
     {
         $company = Company::find($request->company_id);
         $departments = Department::where('company_id', $company->id)->get();
@@ -61,15 +60,17 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function deleteCompany(Request $request)
+    public function delete(Request $request)
     {
-        $company = Company::find($request->company_id);
+        $company = Company::find($request->id);
         $departments = Department::where('company_id', $company->id)->get();
         foreach ($departments as $department)
             $department->delete();
+        /*
         $users = User::where('company_id', $company->id)->get();
         foreach ($users as $user)
             $user->delete();
+        */
         $company->delete();
         $messages = [
             'status' => 'success',
@@ -78,6 +79,15 @@ class CompanyController extends Controller
         ];
         return response()->json([
             'messages' => $messages,
+        ]);
+    }
+
+    public function departments(Request $request)
+    {
+        $company = Company::find($request->id);
+        $departments = Department::where('company_id', $company->id)->get();
+        return response()->json([
+            'departments' => $departments,
         ]);
     }
 }

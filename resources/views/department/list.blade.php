@@ -1,5 +1,5 @@
 @extends('master')
-@section('page_title', 'Şirketler')
+@section('page_title', 'Departmanlar')
 @section('page_head')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 @endsection
@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Şirketleri Listele</h2>
+                        <h2>Departmanları Listele</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -28,23 +28,23 @@
                             <thead>
                             <tr>
                                 <th width="5%">ID</th>
-                                <th width="30%">Marka</th>
-                                <th width="50%">Şirket</th>
+                                <th width="30%">Şirket</th>
+                                <th width="50%">Departman</th>
                                 <th width="15%">İşlem</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($companies as $company)
+                            @foreach($departments as $department)
                                 <tr>
-                                    <td>{{ $company->id }}</td>
-                                    <td>{{ $company->title }}</td>
-                                    <td>{{ $company->company_title }}</td>
+                                    <td>{{ $department->id }}</td>
+                                    <td>{{ $department->company()['title'] }}</td>
+                                    <td>{{ $department->title }}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $company->id }});">
+                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $department->id }});">
                                             Düzenle
                                         </button>
                                         <button class="btn btn-danger btn-sm"
-                                                onclick="runDeleteModal({{ $company->id }},'{{ $company->title }}');">
+                                                onclick="runDeleteModal({{ $department->id }},'{{ $department->title }}');">
                                             Sil
                                         </button>
                                     </td>
@@ -109,22 +109,23 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="title"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Marka</label>
+                            <label for="company_id"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Şirket</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="title"
-                                       id="title">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <select class="form-control has-feedback-left" id="company_id" name="company_id">
+                                    <option value="">Lütfen seçiniz</option>
+                                </select>
+                                <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="company_title"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Şirket Ünvanı</label>
+                            <label for="title"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Departman</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="company_title"
-                                       id="company_title">
-                                <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
+                                <input type="text" class="form-control has-feedback-left" name="title"
+                                       id="title">
+                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -146,11 +147,11 @@
 @endsection
 @section('page_scripts')
     <script type="text/javascript">
-        function runDeleteModal(company_id, title) {
+        function runDeleteModal(department_id, title) {
             $('#closeEditItem').click();
-            var html_delete_body = '<strong>' + company_id + '</strong> numaralı <strong>' + title + '</strong> şirketini silmek istediğinize emin misiniz ?';
+            var html_delete_body = '<strong>' + department_id + '</strong> numaralı <strong>' + title + '</strong> departmanını silmek istediğinize emin misiniz ?';
             $('#deleteItemModalBody').html(html_delete_body);
-            $('#deleteItemAction').attr('onclick', 'deleteRequest(' + company_id + ');');
+            $('#deleteItemAction').attr('onclick', 'deleteRequest(' + department_id + ');');
             $('#deleteItemButton').click();
         }
     </script>
@@ -172,7 +173,7 @@
                 data: {
                     id: id,
                 },
-                url: "{{ route("company.delete") }}",
+                url: "{{ route("department.delete") }}",
                 success: function (data) {
                     new PNotify({
                         title: data.messages.title,
@@ -187,6 +188,16 @@
                         }, 1500);
                     }
                 },
+                error: function (data) {
+                    var msg_field = data.responseJSON.message;
+                    new PNotify({
+                        title: 'Hata',
+                        text: msg_field,
+                        type: 'warning',
+                        delay: 1500,
+                        styling: 'bootstrap3'
+                    });
+                }
             });
         }
     </script>
@@ -199,7 +210,7 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("company.create") }}",
+                url: "{{ route("department.create") }}",
                 success: function (data) {
                     detail(data);
                     $('#editItemButton').click();
@@ -227,12 +238,12 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("company.update") }}",
+                url: "{{ route("department.update") }}",
                 enctype: "multipart/form-data",
                 data: {
                     id: $('#editItemForm #id').val(),
+                    company_id: $('#editItemForm #company_id').val(),
                     title: $('#editItemForm #title').val(),
-                    company_title: $('#editItemForm #company_title').val(),
                 },
                 success: function (data) {
                     new PNotify({
@@ -280,7 +291,9 @@
         });
     </script>
     <script type="text/javascript">
-        function detail(company_id) {
+        function detail(id) {
+            $("#editItemForm #company_id").html(null);
+            $("#editItemForm #company_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -288,15 +301,23 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("company.detail") }}",
+                url: "{{ route("department.detail") }}",
                 data: {
-                    company_id: company_id,
+                    id: id,
                 },
                 success: function (data) {
-                    $('#editItemForm #id').val(data.company.id);
-                    $('#editItemForm #title').val(data.company.title);
-                    $('#editItemForm #company_title').val(data.company.company_title);
-                    $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.company.id + ', "' + data.company.title + '");');
+                    $('#editItemForm #id').val(data.department.id);
+                    var selected_company_id = data.selected_company.id;
+                    var selected = '';
+                    $.each(data.companies, function (key, value) {
+                        if (value['id'] == selected_company_id && data.department.title !== "Yeni Departman") {
+                            selected = ' selected';
+                        }
+                        $("#editItemForm #company_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
+                        selected = '';
+                    });
+                    $('#editItemForm #title').val(data.department.title);
+                    $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.department.id + ', "' + data.department.title + '");');
                     $('#editItemButton').click();
                 },
             });

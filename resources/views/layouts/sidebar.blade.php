@@ -108,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="{{ route("department.list") }}">
                             <i class="fa fa-sitemap"></i> Departmanlar
                         </a>
                     </li>
@@ -125,7 +125,7 @@
                 </a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="#">
+                        <a href="{{ route("user.list") }}">
                             <i class="fa fa-user"></i> Kullanıcılar
                         </a>
                     </li>

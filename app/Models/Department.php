@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Company;
 
 class Department extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $table = 'department';
     protected $primaryKey = 'id';
 
@@ -23,6 +25,10 @@ class Department extends Model
 
     public function company()
     {
-        return $this->hasOne(Company::class, 'id', 'company_id');
+        if ($this->company_id) {
+            $company = Company::where('id', $this->company_id)->first();
+            return $company;
+        } else
+            return false;
     }
 }

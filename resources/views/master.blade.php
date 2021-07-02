@@ -19,7 +19,7 @@
                     <div class="profile_info">
                         <span>Hoşgeldiniz,</span>
                         <h2>{{ auth()->user()->name_surname() }}</h2>
-                        <small>{{ auth()->user()->department() }}</small>
+                        <small>{{ auth()->user()->company()['title'] }} | {{ auth()->user()->department()['title'] }}</small>
                     </div>
                 </div>
                 <!-- /menu profile quick info -->

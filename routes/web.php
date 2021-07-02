@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,19 +21,33 @@ use App\Http\Controllers\CompanyController;
 
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('homepage');
 
-Route::post('getDepartmentsOfCompany', [CompanyController::class, 'getDepartmentsOfCompany'])->middleware('auth')->name('getDepartmentsOfCompany');
-Route::post('getCompanyDetail', [CompanyController::class, 'getCompanyDetail'])->middleware('auth')->name('getCompanyDetail');
-Route::post('deleteCompany', [CompanyController::class, 'deleteCompany'])->middleware('auth')->name('deleteCompany');
-
 Route::group(['prefix' => 'user'], function () {
     Route::get('edit/{id}', [UserController::class, 'edit_form'])->middleware('auth')->name('user.edit');
     Route::post('edit/{id}', [UserController::class, 'edit_action'])->middleware('auth')->name('user.edit_action');
 });
 Route::group(['prefix' => 'company'], function () {
     Route::get('list', [CompanyController::class, 'list'])->middleware('auth')->name('company.list');
-    Route::get('create', [CompanyController::class, 'create'])->middleware('auth')->name('company.create');
-    Route::post('edit', [CompanyController::class, 'edit_action'])->middleware('auth')->name('company.edit_action');
+    Route::post('detail', [CompanyController::class, 'detail'])->middleware('auth')->name('company.detail');
+    Route::post('create', [CompanyController::class, 'create'])->middleware('auth')->name('company.create');
+    Route::post('update', [CompanyController::class, 'update'])->middleware('auth')->name('company.update');
+    Route::post('delete', [CompanyController::class, 'delete'])->middleware('auth')->name('company.delete');
+    Route::post('departments', [CompanyController::class, 'departments'])->middleware('auth')->name('company.departments');
 });
+Route::group(['prefix' => 'department'], function () {
+    Route::get('list', [DepartmentController::class, 'list'])->middleware('auth')->name('department.list');
+    Route::post('detail', [DepartmentController::class, 'detail'])->middleware('auth')->name('department.detail');
+    Route::post('create', [DepartmentController::class, 'create'])->middleware('auth')->name('department.create');
+    Route::post('update', [DepartmentController::class, 'update'])->middleware('auth')->name('department.update');
+    Route::post('delete', [DepartmentController::class, 'delete'])->middleware('auth')->name('department.delete');
+});
+Route::group(['prefix' => 'user'], function () {
+    Route::get('list', [UserController::class, 'list'])->middleware('auth')->name('user.list');
+    Route::post('detail', [UserController::class, 'detail'])->middleware('auth')->name('user.detail');
+    Route::post('create', [UserController::class, 'create'])->middleware('auth')->name('user.create');
+    Route::post('update', [UserController::class, 'update'])->middleware('auth')->name('user.update');
+    Route::post('delete', [UserController::class, 'delete'])->middleware('auth')->name('user.delete');
+});
+
 Route::get('/login', [AuthController::class, 'login_form'])->middleware('guest')->name('login');
 Route::post('/login', [AuthController::class, 'login_action'])->middleware('guest')->name('user.login_action');
 Route::get('/register', [AuthController::class, 'register_form'])->middleware('guest')->name('user.register_form');
