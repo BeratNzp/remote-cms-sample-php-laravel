@@ -113,20 +113,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-id-card"></i> Müşteriler
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a>
-                    <i class="fa fa-user"></i> Hesap İşlemleri <span class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li>
                         <a href="{{ route("user.list") }}">
-                            <i class="fa fa-user"></i> Kullanıcılar
+                            <i class="fa fa-user-secret"></i> Kullanıcılar
                         </a>
                     </li>
                     <li>
@@ -137,6 +125,11 @@
                     <li>
                         <a href="#">
                             <i class="fa fa-server"></i> Hesap Durumu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i> Müşteriler
                         </a>
                     </li>
                 </ul>

@@ -25,8 +25,7 @@
                 <h1><i class="fa fa-paw"></i> {{ config('app.name') }}</h1>
             </div>
             <section class="login_content">
-                <form class="form-horizontal" role="form" method="POST" id="login_form"
-                      action="{{ route('user.login_action') }}">
+                <form class="form-horizontal" role="form" method="POST" id="login_form">
                     {{ csrf_field() }}
                     <h1>Giriş</h1>
                     <div class="form-group">
@@ -81,7 +80,7 @@
         var formData = new FormData(form);
         $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
+            url: {{ route('user.login_action') }},
             enctype: "multipart/form-data",
             data: formData,
             contentType: false,

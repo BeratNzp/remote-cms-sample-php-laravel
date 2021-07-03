@@ -133,7 +133,7 @@
                                 <select class="form-control has-feedback-left" id="department_id" name="department_id">
                                     <option value="">Lütfen seçiniz</option>
                                 </select>
-                                <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-sitemap form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -143,7 +143,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <input type="text" class="form-control has-feedback-left" name="first_name"
                                        id="first_name">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -153,7 +153,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <input type="text" class="form-control has-feedback-left" name="last_name"
                                        id="last_name">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -163,7 +163,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <input type="email" class="form-control has-feedback-left" name="email"
                                        id="email">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -173,7 +173,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <input type="password" class="form-control has-feedback-left" name="password"
                                        id="password">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -184,7 +184,7 @@
                                 <input type="password" class="form-control has-feedback-left"
                                        name="password_confirmation"
                                        id="password_confirmation">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -289,7 +289,7 @@
     </script>
     <script type="text/javascript">
         $(document).on('click', '#closeEditItem', function () {
-            if ($('#editItemForm #first_name').val() == 'İsim' && $('#editItemForm #last_name').val() == 'Soyisim')
+            if ($('#editItemForm #first_name').val() === 'İsim' && $('#editItemForm #last_name').val() === 'Soyisim')
                 deleteRequest($('#editItemForm #id').val());
         });
     </script>
@@ -392,7 +392,7 @@
                     var selected_company_id = data.selected_company.id;
                     var selected_company = '';
                     $.each(data.companies, function (key, value) {
-                        if (value['id'] == selected_company_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
+                        if (value['id'] === selected_company_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
                             selected_company = ' selected';
                         }
                         $("#editItemForm #company_id").append($("<option " + selected_company + "></option>").attr("value", value['id']).text(value['title']));
@@ -403,7 +403,7 @@
                     $("#editItemForm #department_id").html(null);
                     $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
                     $.each(data.departments_of_category, function (key, value) {
-                        if (value['id'] == selected_department_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
+                        if (value['id'] === selected_department_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
                             selected_department = ' selected';
                         }
                         $("#editItemForm #department_id").append($("<option " + selected_department + "></option>").attr("value", value['id']).text(value['title']));

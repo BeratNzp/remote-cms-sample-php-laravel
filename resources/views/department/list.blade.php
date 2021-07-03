@@ -125,7 +125,7 @@
                             <div class="col-md-6 col-sm-12">
                                 <input type="text" class="form-control has-feedback-left" name="title"
                                        id="title">
-                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-sitemap form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -220,7 +220,7 @@
     </script>
     <script type="text/javascript">
         $(document).on('click', '#closeEditItem', function () {
-            if ($('#editItemForm #title').val() == 'Yeni Departman')
+            if ($('#editItemForm #title').val() === 'Yeni Departman')
                 deleteRequest($('#editItemForm #id').val());
         });
     </script>
@@ -316,7 +316,7 @@
                     var selected_company_id = data.selected_company.id;
                     var selected = '';
                     $.each(data.companies, function (key, value) {
-                        if (value['id'] == selected_company_id && data.department.title !== "Yeni Departman") {
+                        if (value['id'] === selected_company_id && data.department.title !== "Yeni Departman") {
                             selected = ' selected';
                         }
                         $("#editItemForm #company_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));

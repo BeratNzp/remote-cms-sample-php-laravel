@@ -21,28 +21,25 @@ class AuthController extends Controller
 
     public function login_action(UserLoginRequest $request)
     {
-        /*
-        $this->validate(request(), [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-        */
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember_me'))) {
             $request->session()->regenerate();
-            //return redirect()->intended('/');
+            /*
             $messages = [
                 'status' => 'success',
                 'title' => 'Başarılı',
                 'message' => 'Yönlendiriliyorsunuz ...',
             ];
-        } else {
+            */
+        } /* else {
             $messages = [
                 'status' => 'error',
                 'title' => 'Hata',
                 'message' => 'Kullanıcı adı veya parola hatalı !',
             ];
-        }
-        return response()->json(['messages' => $messages]);
+
+        } */
+        //return response()->json(['messages' => $messages]);
+        return redirect()->route('homepage');
     }
 
     public function register_form()
