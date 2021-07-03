@@ -35,8 +35,8 @@ class UserController extends Controller
         $user = User::create([
             'company_id' => auth()->user()->company()->id,
             'department_id' => auth()->user()->department()->id,
-            'first_name' => '',
-            'last_name' => '',
+            'first_name' => 'İsim',
+            'last_name' => 'Soyisim',
             'email' => 'randomEmailForNewUsersOfRCMS@'.$random_string,
             'password' => '',
         ]);

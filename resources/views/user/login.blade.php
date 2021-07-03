@@ -65,7 +65,7 @@
         $('#submit_button').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}">');
         setTimeout(function () {
             $('#submit_button').prop('disabled', false);
-            $('#submit_button').html('Kaydet');
+            $('#submit_button').html('Giriş Yap');
         }, 2000);
         $("#login_form #messages").html(null);
         var inputs = $('#login_form .form-group');

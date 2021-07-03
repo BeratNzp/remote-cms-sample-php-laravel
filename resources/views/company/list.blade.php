@@ -208,6 +208,12 @@
         });
     </script>
     <script type="text/javascript">
+        $(document).on('click', '#closeEditItem', function () {
+            if ($('#editItemForm #title').val() == 'Yeni Marka')
+                deleteRequest($('#editItemForm #id').val());
+        });
+    </script>
+    <script type="text/javascript">
         $('#editItemForm').submit(function (e) {
             $('#editItemForm #submit_button').prop('disabled', true);
             $('#editItemForm #submit_button').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}"> Kaydet');

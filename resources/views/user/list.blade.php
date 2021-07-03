@@ -28,11 +28,11 @@
                             <thead>
                             <tr>
                                 <th width="5%">ID</th>
-                                <th>Şirket</th>
-                                <th>Departman</th>
-                                <th>İsim</th>
-                                <th>Soyisim</th>
-                                <th>Email</th>
+                                <th width="5">Şirket</th>
+                                <th width="5">Departman</th>
+                                <th width="27">İsim</th>
+                                <th width="27">Soyisim</th>
+                                <th width="16">Email</th>
                                 <th width="15%">İşlem</th>
                             </tr>
                             </thead>
@@ -118,7 +118,8 @@
                             <label for="company_id"
                                    class="col-form-label col-md-3 col-sm-3 label-align">Şirket</label>
                             <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="company_id" name="company_id" onchange="getDepartmentsOfCompany();">
+                                <select class="form-control has-feedback-left" id="company_id" name="company_id"
+                                        onchange="getDepartmentsOfCompany();">
                                     <option value="">Lütfen seçiniz</option>
                                 </select>
                                 <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
@@ -180,7 +181,8 @@
                             <label for="password_confirmation"
                                    class="col-form-label col-md-3 col-sm-3 label-align">Parola (Tekrar)</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="password" class="form-control has-feedback-left" name="password_confirmation"
+                                <input type="password" class="form-control has-feedback-left"
+                                       name="password_confirmation"
                                        id="password_confirmation">
                                 <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
@@ -286,6 +288,12 @@
         });
     </script>
     <script type="text/javascript">
+        $(document).on('click', '#closeEditItem', function () {
+            if ($('#editItemForm #first_name').val() == 'İsim' && $('#editItemForm #last_name').val() == 'Soyisim')
+                deleteRequest($('#editItemForm #id').val());
+        });
+    </script>
+    <script type="text/javascript">
         $('#editItemForm').submit(function (e) {
             $('#editItemForm #submit_button').prop('disabled', true);
             $('#editItemForm #submit_button').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}"> Kaydet');
@@ -384,7 +392,7 @@
                     var selected_company_id = data.selected_company.id;
                     var selected_company = '';
                     $.each(data.companies, function (key, value) {
-                        if (value['id'] == selected_company_id && data.user.first_name !== '') {
+                        if (value['id'] == selected_company_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
                             selected_company = ' selected';
                         }
                         $("#editItemForm #company_id").append($("<option " + selected_company + "></option>").attr("value", value['id']).text(value['title']));
@@ -395,7 +403,7 @@
                     $("#editItemForm #department_id").html(null);
                     $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
                     $.each(data.departments_of_category, function (key, value) {
-                        if (value['id'] == selected_department_id && data.user.first_name !== '') {
+                        if (value['id'] == selected_department_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
                             selected_department = ' selected';
                         }
                         $("#editItemForm #department_id").append($("<option " + selected_department + "></option>").attr("value", value['id']).text(value['title']));
@@ -404,7 +412,7 @@
                     $('#editItemForm #first_name').val(data.user.first_name);
                     $('#editItemForm #last_name').val(data.user.last_name);
                     var user_email = data.user.email;
-                    if(user_email.substr(0,29) !== 'randomEmailForNewUsersOfRCMS@')
+                    if (user_email.substr(0, 29) !== 'randomEmailForNewUsersOfRCMS@')
                         $('#editItemForm #email').val(data.user.email);
                     $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.user.id + ', "' + data.user.first_name + ' ' + data.user.last_name + '");');
                     $('#editItemButton').click();
