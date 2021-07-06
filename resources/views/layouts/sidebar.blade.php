@@ -118,13 +118,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-cog"></i> Yapılandırma
+                        <a href="{{ route("service.list") }}">
+                            <i class="fa fa-server"></i> Servisler
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-server"></i> Hesap Durumu
+                            <i class="fa fa-cog"></i> Yapılandırma
                         </a>
                     </li>
                     <li>

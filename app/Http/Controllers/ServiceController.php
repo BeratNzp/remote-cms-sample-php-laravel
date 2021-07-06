@@ -3,37 +3,46 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Currency;
 use Illuminate\Http\Request;
-use App\Models\Department;
-use App\Http\Requests\DepartmentUpdateRequest;
+use App\Models\Service;
+use App\Http\Requests\ServiceUpdateRequest;
 
-class DepartmentController extends Controller
+class ServiceController extends Controller
 {
     public function list()
     {
         $companies = Company::all();
-        $departments = Department::all();
-        return view('department.list', compact([
+        $services = Service::all();
+        $currencies = Currency::all();
+        return view('service.list', compact([
             'companies', $companies,
-            'departments', $departments,
+            'services', $services,
+            'currencies', $currencies,
         ]));
     }
 
     public function create()
     {
-        $department = Department::create([
+        $service = Service::create([
             'company_id' => auth()->user()->company()->id,
-            'title' => 'Yeni Departman',
+            'title' => 'Yeni Servis',
+            'first_payment_time' => date("Y-m-d"),
+            'last_payment_time' => date("Y-m-d"),
         ]);
-        return $department->id;
+        return $service->id;
     }
 
-    public function update(DepartmentUpdateRequest $request)
+    public function update(ServiceUpdateRequest $request)
     {
-        $department = Department::find($request->id);
-        if ($department->update([
+        $service = Service::find($request->id);
+        if ($service->update([
             'company_id' => $request->company_id,
             'title' => $request->title,
+            'price' => $request->price,
+            'currency_id' => $request->currency_id,
+            'first_payment_time' => $request->first_payment_time,
+            'last_payment_time' => $request->last_payment_time,
         ])) {
             $messages = [
                 'status' => 'success',
@@ -54,20 +63,24 @@ class DepartmentController extends Controller
     public function detail(Request $request)
     {
         $companies = Company::all();
-        $department = Department::find($request->id);
-        $selected_company = Company::where('id', $department->company_id)->first();
+        $service = Service::find($request->id);
+        $selected_company = Company::where('id', $service->company_id)->first();
+        $next_payment_time = $service->next_payment_time()['tr'];
+        $days_left = $service->days_left();
         return response()->json([
             'companies' => $companies,
-            'department' => $department,
+            'service' => $service,
+            'next_payment_time' => $next_payment_time,
+            'days_left' => $days_left,
             'selected_company' => $selected_company,
         ]);
     }
 
     public function delete(Request $request)
     {
-        $department = Department::find($request->id);
-        if ($department) {
-            if ($department->delete()) {
+        $service = Service::find($request->id);
+        if ($service) {
+            if ($service->delete()) {
                 $messages = [
                     'status' => 'success',
                     'title' => 'Silindi',
@@ -84,7 +97,7 @@ class DepartmentController extends Controller
             $messages = [
                 'status' => 'warning',
                 'title' => 'Silinemedi',
-                'message' => 'Departman bulunamadı.',
+                'message' => 'Servis bulunamadı.',
             ];
         }
         return response()->json([

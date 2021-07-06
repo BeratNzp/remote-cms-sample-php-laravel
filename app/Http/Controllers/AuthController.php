@@ -23,23 +23,21 @@ class AuthController extends Controller
     {
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password], $request->has('remember_me'))) {
             $request->session()->regenerate();
-            /*
             $messages = [
                 'status' => 'success',
                 'title' => 'Başarılı',
                 'message' => 'Yönlendiriliyorsunuz ...',
             ];
-            */
-        } /* else {
+        } else {
             $messages = [
                 'status' => 'error',
                 'title' => 'Hata',
                 'message' => 'Kullanıcı adı veya parola hatalı !',
             ];
 
-        } */
-        //return response()->json(['messages' => $messages]);
-        return redirect()->route('homepage');
+        }
+        return response()->json(['messages' => $messages]);
+        //return redirect()->route('homepage');
     }
 
     public function register_form()

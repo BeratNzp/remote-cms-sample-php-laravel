@@ -37,7 +37,7 @@ class UserController extends Controller
             'department_id' => auth()->user()->department()->id,
             'first_name' => 'İsim',
             'last_name' => 'Soyisim',
-            'email' => 'randomEmailForNewUsersOfRCMS@'.$random_string,
+            'email' => 'randomEmailForNewUsersOfRCMS@' . $random_string,
             'password' => '',
         ]);
         return $user->id;
@@ -50,19 +50,27 @@ class UserController extends Controller
         if ($request->password) {
             $password = Hash::make($request->password);
         }
-        $user->update([
+        if ($user->update([
             'company_id' => $request->company_id,
             'department_id' => $request->department_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => $password,
-        ]);
-        $messages = [
-            'status' => 'success',
-            'title' => 'Kaydedildi',
-            'message' => 'Yönlendiriliyorsunuz ...',
-        ];
+        ])) {
+            $messages = [
+                'status' => 'success',
+                'title' => 'Kaydedildi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        } else {
+            $messages = [
+                'status' => 'danger',
+                'title' => 'Kaydedilemedi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        }
+
         return response()->json([
             'messages' => $messages,
         ]);
@@ -87,16 +95,25 @@ class UserController extends Controller
     public function delete(Request $request)
     {
         $user = User::find($request->id);
-        $user->delete();
-        $messages = [
-            'status' => 'success',
-            'title' => 'Silindi',
-            'message' => 'Yönlendiriliyorsunuz ...',
-        ];
+        if ($user->delete()) {
+            $messages = [
+                'status' => 'success',
+                'title' => 'Silindi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        } else {
+            $messages = [
+                'status' => 'danger',
+                'title' => 'Silinemedi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        }
+
         return response()->json([
             'messages' => $messages,
         ]);
     }
+
     /////////
     public function logout_action()
     {

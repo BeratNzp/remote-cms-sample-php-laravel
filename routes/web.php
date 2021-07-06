@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ServiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,14 @@ use App\Http\Controllers\DepartmentController;
 
 Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('homepage');
 
-Route::group(['prefix' => 'user'], function () {
-    Route::get('edit/{id}', [UserController::class, 'edit_form'])->middleware('auth')->name('user.edit');
-    Route::post('edit/{id}', [UserController::class, 'edit_action'])->middleware('auth')->name('user.edit_action');
-});
+Route::get('login', [AuthController::class, 'login_form'])->middleware('guest')->name('login');
+Route::post('login', [AuthController::class, 'login_action'])->middleware('guest')->name('user.login_action');
+Route::get('register', [AuthController::class, 'register_form'])->middleware('guest')->name('user.register_form');
+Route::post('register', [AuthController::class, 'register_action'])->middleware('guest')->name('user.register_action');
+Route::post('logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
+Route::get('logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
+Route::get('activate/{token}', [AuthController::class, 'activate'])->name('user.activate');
+
 Route::group(['prefix' => 'company'], function () {
     Route::get('list', [CompanyController::class, 'list'])->middleware('auth')->name('company.list');
     Route::post('detail', [CompanyController::class, 'detail'])->middleware('auth')->name('company.detail');
@@ -33,6 +38,7 @@ Route::group(['prefix' => 'company'], function () {
     Route::post('delete', [CompanyController::class, 'delete'])->middleware('auth')->name('company.delete');
     Route::post('departments', [CompanyController::class, 'departments'])->middleware('auth')->name('company.departments');
 });
+
 Route::group(['prefix' => 'department'], function () {
     Route::get('list', [DepartmentController::class, 'list'])->middleware('auth')->name('department.list');
     Route::post('detail', [DepartmentController::class, 'detail'])->middleware('auth')->name('department.detail');
@@ -40,6 +46,15 @@ Route::group(['prefix' => 'department'], function () {
     Route::post('update', [DepartmentController::class, 'update'])->middleware('auth')->name('department.update');
     Route::post('delete', [DepartmentController::class, 'delete'])->middleware('auth')->name('department.delete');
 });
+
+Route::group(['prefix' => 'service'], function () {
+    Route::get('list', [ServiceController::class, 'list'])->middleware('auth')->name('service.list');
+    Route::post('detail', [ServiceController::class, 'detail'])->middleware('auth')->name('service.detail');
+    Route::post('create', [ServiceController::class, 'create'])->middleware('auth')->name('service.create');
+    Route::post('update', [ServiceController::class, 'update'])->middleware('auth')->name('service.update');
+    Route::post('delete', [ServiceController::class, 'delete'])->middleware('auth')->name('service.delete');
+});
+
 Route::group(['prefix' => 'user'], function () {
     Route::get('list', [UserController::class, 'list'])->middleware('auth')->name('user.list');
     Route::post('detail', [UserController::class, 'detail'])->middleware('auth')->name('user.detail');
@@ -47,17 +62,6 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('update', [UserController::class, 'update'])->middleware('auth')->name('user.update');
     Route::post('delete', [UserController::class, 'delete'])->middleware('auth')->name('user.delete');
 });
-
-Route::get('/login', [AuthController::class, 'login_form'])->middleware('guest')->name('login');
-Route::post('/login', [AuthController::class, 'login_action'])->middleware('guest')->name('user.login_action');
-Route::get('/register', [AuthController::class, 'register_form'])->middleware('guest')->name('user.register_form');
-Route::post('/register', [AuthController::class, 'register_action'])->middleware('guest')->name('user.register_action');
-Route::get('/activate/{token}', [AuthController::class, 'activate'])->name('user.activate');
-
-Route::post('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
-Route::get('/logout', [UserController::class, 'logout_action'])->middleware('auth')->name('user.logout_action');
-
-
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('/', [TestController::class, 'test_index'])->name('test.index');

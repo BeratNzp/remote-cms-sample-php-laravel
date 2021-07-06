@@ -17,10 +17,10 @@ class CreateServiceTable extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->string("title", 64);
-            $table->unsignedBigInteger('currency_id');
-            $table->decimal('price',9,2);
-            $table->date('first_payment_time');
-            $table->date('last_payment_time');
+            $table->decimal('price',9,2)->nullable();
+            $table->unsignedBigInteger('currency_id')->nullable();
+            $table->date('first_payment_time')->nullable();
+            $table->date('last_payment_time')->nullable();
             $table->timestamps();
         });
         Schema::table('service', function (Blueprint $table) {

@@ -80,7 +80,7 @@
         var formData = new FormData(form);
         $.ajax({
             type: "POST",
-            url: {{ route('user.login_action') }},
+            url: "{{ route('user.login_action') }}",
             enctype: "multipart/form-data",
             data: formData,
             contentType: false,
@@ -101,16 +101,18 @@
                 }
             },
             error: function (data) {
+                console.log(data);
                 var msg_field = '';
-                $.each(data.responseJSON.errors, function (key, value) {
+                /*$.each(data.responseJSON.message, function (key, value) {
                     var formGroup = $("#login_form #" + key).closest(".form-group");
                     formGroup.addClass('has-error');
                     formGroup.find('.help-block').html(value[0]);
                     msg_field += '<li>' + value[0] + '</li>';
                 });
+                */
                 new PNotify({
                     title: 'Hata',
-                    text: msg_field,
+                    text: data.responseJSON.message,
                     type: 'warning',
                     delay: 1500,
                     styling: 'bootstrap3'

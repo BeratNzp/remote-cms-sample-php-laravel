@@ -11,7 +11,7 @@
                         <img src="{{ asset("images/img.jpg") }}" alt="">{{ auth()->user()->name_surname() }}
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('user.edit', ['id' => 1]) }}"> Profil</a>
+                        <a class="dropdown-item" href="{{ route("user.list") }}"> Profil</a>
                         <a class="dropdown-item" href="#">
                             <span>Ayarlar</span>
                         </a>

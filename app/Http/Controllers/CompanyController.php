@@ -29,15 +29,23 @@ class CompanyController extends Controller
     public function update(CompanyUpdateRequest $request)
     {
         $company = Company::find($request->id);
-        $company->update([
+        if ($company->update([
             'title' => $request->title,
             'company_title' => $request->company_title,
-        ]);
-        $messages = [
-            'status' => 'success',
-            'title' => 'Kaydedildi',
-            'message' => 'Yönlendiriliyorsunuz ...',
-        ];
+        ])) {
+            $messages = [
+                'status' => 'success',
+                'title' => 'Kaydedildi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        } else {
+            $messages = [
+                'status' => 'danger',
+                'title' => 'Kaydedilemedi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        }
+
         return response()->json(['messages' => $messages]);
     }
 
@@ -66,17 +74,20 @@ class CompanyController extends Controller
         $departments = Department::where('company_id', $company->id)->get();
         foreach ($departments as $department)
             $department->delete();
-        /*
-        $users = User::where('company_id', $company->id)->get();
-        foreach ($users as $user)
-            $user->delete();
-        */
-        $company->delete();
-        $messages = [
-            'status' => 'success',
-            'title' => 'Silindi',
-            'message' => 'Yönlendiriliyorsunuz ...',
-        ];
+        if($company->delete()){
+            $messages = [
+                'status' => 'success',
+                'title' => 'Silindi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        }else{
+            $messages = [
+                'status' => 'danger',
+                'title' => 'Silinemedi',
+                'message' => 'Yönlendiriliyorsunuz.',
+            ];
+        }
+
         return response()->json([
             'messages' => $messages,
         ]);
