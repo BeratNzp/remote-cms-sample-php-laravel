@@ -15,17 +15,20 @@ class CreateDatabaseTable extends Migration
     {
         Schema::create('database', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('service_id');
-            $table->string("db", "64");
-            $table->string("host", "64");
-            $table->string("port", "64");
-            $table->string("username", "64");
-            $table->string("password", "64");
+            $table->unsignedBigInteger('company_id');
+            $table->string("ip", "64")->nullable();
+            $table->string("port", "5")->nullable();
+            $table->string("username", "256")->nullable();
+            $table->string("password", "256")->nullable();
+            $table->string("database", "256");
             $table->timestamps();
             $table->softDeletes();
         });
         Schema::table('database', function (Blueprint $table) {
-            $table->foreign('service_id')->references('id')->on('service');
+            $table->foreign('company_id')->references('id')->on('company');
+        });
+        Schema::table('user', function (Blueprint $table) {
+            $table->foreign('current_database_id')->references('id')->on('database');
         });
     }
 

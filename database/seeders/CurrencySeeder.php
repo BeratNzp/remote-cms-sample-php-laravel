@@ -16,10 +16,10 @@ class CurrencySeeder extends Seeder
     public function run()
     {
         Currency::create([
-            'title' => 'TL',
+            'title' => 'USD',
         ]);
         Currency::create([
-            'title' => 'USD',
+            'title' => 'TL',
         ]);
     }
 }

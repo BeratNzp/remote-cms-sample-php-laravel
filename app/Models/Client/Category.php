@@ -18,6 +18,8 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
+        'up_category_id',
+        'type_id',
         'title',
     ];
 }

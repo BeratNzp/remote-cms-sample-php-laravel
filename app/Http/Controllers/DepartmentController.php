@@ -13,7 +13,7 @@ class DepartmentController extends Controller
     {
         $companies = Company::all();
         $departments = Department::all();
-        return view('department.list', compact([
+        return view('rcms.department.list', compact([
             'companies', $companies,
             'departments', $departments,
         ]));

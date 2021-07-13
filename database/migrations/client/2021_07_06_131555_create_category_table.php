@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\CategoryType;
 
 class CreateCategoryTable extends Migration
 {
@@ -16,9 +17,14 @@ class CreateCategoryTable extends Migration
         $this->down();
         Schema::connection('panel_user')->create('category', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('up_category_id')->nullable();
+            $table->enum('type_id', CategoryType::getValues())->nullable();
             $table->string("title", 64);
             $table->timestamps();
             $table->softDeletes();
+        });
+        Schema::connection('panel_user')->table('category', function (Blueprint $table) {
+            $table->foreign('up_category_id')->references('id')->on('category');
         });
     }
 

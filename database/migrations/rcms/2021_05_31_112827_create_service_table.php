@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\ServiceType;
 
 class CreateServiceTable extends Migration
 {
@@ -21,6 +22,7 @@ class CreateServiceTable extends Migration
             $table->unsignedBigInteger('currency_id')->nullable();
             $table->date('first_payment_time')->nullable();
             $table->date('last_payment_time')->nullable();
+            $table->enum('status', ServiceType::getValues())->default(ServiceType::Pasif);
             $table->timestamps();
         });
         Schema::table('service', function (Blueprint $table) {

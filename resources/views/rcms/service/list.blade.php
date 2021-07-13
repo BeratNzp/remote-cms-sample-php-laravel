@@ -1,5 +1,5 @@
 @extends('master')
-@section('page_title', 'Kullanıcılar')
+@section('page_title', 'Servisler')
 @section('page_head')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 @endsection
@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Kullanıcıları Listele</h2>
+                        <h2>Servisleri Listele</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -27,30 +27,43 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th width="5%">ID</th>
-                                <th width="5">Şirket</th>
-                                <th width="5">Departman</th>
-                                <th width="27">İsim</th>
-                                <th width="27">Soyisim</th>
-                                <th width="16">Email</th>
-                                <th width="15%">İşlem</th>
+                                <th>ID</th>
+                                <th>Durum</th>
+                                <th>Şirket</th>
+                                <th>Servis Adı</th>
+                                <th>Sonraki Ödeme</th>
+                                <th>Son Ödemeye Kalan Gün</th>
+                                <th>Fiyat</th>
+                                <th>İşlem</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($services as $service)
+                                @php
+                                    if(isset($service))
+                                    {
+                                        if($service->status == 0)
+                                            $status_img = 'light_red.png';
+                                        elseif ($service->status == 1)
+                                            $status_img = 'light_green.png';
+                                        elseif ($service->status == 2)
+                                            $status_img = 'light_yellow.png';
+                                    }
+                                @endphp
                                 <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->company()['title'] }}</td>
-                                    <td>{{ $user->department()['title'] }}</td>
-                                    <td>{{ $user->first_name }}</td>
-                                    <td>{{ $user->last_name }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $service->id }}</td>
+                                    <td><img src="{{ asset("images/".$status_img) }}"></td>
+                                    <td>{{ $service->company->title }}</td>
+                                    <td>{{ $service->title }}</td>
+                                    <td>{{ $service->next_payment_time()['tr'] }}</td>
+                                    <td>{{ $service->days_left() }}</td>
+                                    <td>{{ $service->price }} {{ isset($service->currency->title) ? $service->currency->title : '' }}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $user->id }});">
+                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $service->id }});">
                                             Düzenle
                                         </button>
                                         <button class="btn btn-danger btn-sm"
-                                                onclick="runDeleteModal({{ $user->id }},'{{ $user->first_name }} {{ $user->last_name }}');">
+                                                onclick="runDeleteModal({{ $service->id }},'{{ $service->title }}');">
                                             Sil
                                         </button>
                                     </td>
@@ -118,8 +131,7 @@
                             <label for="company_id"
                                    class="col-form-label col-md-3 col-sm-3 label-align">Şirket</label>
                             <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="company_id" name="company_id"
-                                        onchange="getDepartmentsOfCompany();">
+                                <select class="form-control has-feedback-left" id="company_id" name="company_id">
                                     <option value="">Lütfen seçiniz</option>
                                 </select>
                                 <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
@@ -127,64 +139,86 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="department_id"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Departman</label>
+                            <label for="title"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Servis Adı</label>
                             <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="department_id" name="department_id">
+                                <input type="hidden" name="title" id="title_current">
+                                <input type="text" class="form-control has-feedback-left" name="title"
+                                       id="title">
+                                <span class="fa fa-server form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="price"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Fiyat</label>
+                            <div class="col-md-6 col-sm-12">
+                                <input type="number" class="form-control has-feedback-left" name="price"
+                                       id="price">
+                                <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="currency_id"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Para Birimi</label>
+                            <div class="col-md-6 col-sm-12">
+                                <select class="form-control has-feedback-left" id="currency_id" name="currency_id">
+                                    <option value="">Lütfen seçiniz</option>
+                                    @foreach($currencies as $currency)
+                                        <option value="{{ $currency->id }}">{{ $currency->title }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="fa fa-money form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="first_payment_time"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">İlk Ödeme</label>
+                            <div class="col-md-6 col-sm-12">
+                                <input type="date" class="form-control has-feedback-left" name="first_payment_time"
+                                       id="first_payment_time">
+                                <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="last_payment_time"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Son Ödeme</label>
+                            <div class="col-md-6 col-sm-12">
+                                <input type="date" class="form-control has-feedback-left" name="last_payment_time"
+                                       id="last_payment_time">
+                                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="status"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Durum</label>
+                            <div class="col-md-6 col-sm-12">
+                                <select class="form-control has-feedback-left" id="status" name="status">
                                     <option value="">Lütfen seçiniz</option>
                                 </select>
-                                <span class="fa fa-sitemap form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
-                        <div class="item form-group">
-                            <label for="first_name"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">İsim</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="first_name"
-                                       id="first_name">
-                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
+                        <div class="ln_solid"></div>
+                        <div class="item">
+                            <label for="next_payment_time"
+                                   class="col-form-label col-md-3 col-sm-12 label-align">Sonraki Ödeme</label>
+                            <div class="col-form-label col-md-6 col-sm-12">
+                                <div id="next_payment_time"></div>
                             </div>
                             <span class="help-block"></span>
                         </div>
-                        <div class="item form-group">
-                            <label for="last_name"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Soyisim</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="last_name"
-                                       id="last_name">
-                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
-                            <label for="email"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="email" class="form-control has-feedback-left" name="email"
-                                       id="email">
-                                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Parola</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="password" class="form-control has-feedback-left" name="password"
-                                       id="password">
-                                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
-                            <label for="password_confirmation"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Parola (Tekrar)</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="password" class="form-control has-feedback-left"
-                                       name="password_confirmation"
-                                       id="password_confirmation">
-                                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
+                        <div class="item">
+                            <label for="days_left"
+                                   class="col-form-label col-md-3 col-sm-12 label-align">Sonraki Ödemeye Kalan
+                                Gün</label>
+                            <div class="col-form-label col-md-6 col-sm-12">
+                                <div id="days_left"></div>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -206,9 +240,38 @@
 @endsection
 @section('page_scripts')
     <script type="text/javascript">
+        function calculate_next_payment_time(last_payment_time) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "POST",
+                data: {
+                    last_payment_time: last_payment_time,
+                },
+                url: "{{ route("service.calculate_next_payment_time") }}",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (data) {
+                    var msg_field = data.responseJSON.message;
+                    new PNotify({
+                        title: 'Hata',
+                        text: msg_field,
+                        type: 'warning',
+                        delay: 1500,
+                        styling: 'bootstrap3'
+                    });
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
         function runDeleteModal(id, title) {
             $('#closeEditItem').click();
-            var html_delete_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> kullanıcısını silmek istediğinize emin misiniz ?';
+            var html_delete_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> servisini silmek istediğinize emin misiniz ?';
             $('#deleteItemModalBody').html(html_delete_body);
             $('#deleteItemAction').attr('onclick', 'deleteRequest(' + id + ');');
             $('#deleteItemButton').click();
@@ -232,7 +295,7 @@
                 data: {
                     id: id,
                 },
-                url: "{{ route("user.delete") }}",
+                url: "{{ route("service.delete") }}",
                 success: function (data) {
                     new PNotify({
                         title: data.messages.title,
@@ -269,7 +332,7 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("user.create") }}",
+                url: "{{ route("service.create") }}",
                 success: function (data) {
                     detail(data);
                     $('#editItemButton').click();
@@ -289,7 +352,7 @@
     </script>
     <script type="text/javascript">
         $(document).on('click', '#closeEditItem', function () {
-            if ($('#editItemForm #first_name').val() === 'İsim' && $('#editItemForm #last_name').val() === 'Soyisim')
+            if ($('#editItemForm #title_current').val() === 'Yeni Servis')
                 deleteRequest($('#editItemForm #id').val());
         });
     </script>
@@ -313,17 +376,17 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("user.update") }}",
+                url: "{{ route("service.update") }}",
                 enctype: "multipart/form-data",
                 data: {
                     id: $('#editItemForm #id').val(),
                     company_id: $('#editItemForm #company_id').val(),
-                    department_id: $('#editItemForm #department_id').val(),
-                    first_name: $('#editItemForm #first_name').val(),
-                    last_name: $('#editItemForm #last_name').val(),
-                    email: $('#editItemForm #email').val(),
-                    password: $('#editItemForm #password').val(),
-                    password_confirmation: $('#editItemForm #password_confirmation').val(),
+                    title: $('#editItemForm #title').val(),
+                    price: $('#editItemForm #price').val(),
+                    currency_id: $('#editItemForm #currency_id').val(),
+                    first_payment_time: $('#editItemForm #first_payment_time').val(),
+                    last_payment_time: $('#editItemForm #last_payment_time').val(),
+                    status: $('#editItemForm #status').val(),
                 },
                 success: function (data) {
                     new PNotify({
@@ -374,8 +437,6 @@
         function detail(id) {
             $("#editItemForm #company_id").html(null);
             $("#editItemForm #company_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
-            $("#editItemForm #department_id").html(null);
-            $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen önce şirket seçiniz"));
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -383,71 +444,47 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("user.detail") }}",
+                url: "{{ route("service.detail") }}",
                 data: {
                     id: id,
                 },
                 success: function (data) {
-                    $('#editItemForm #id').val(data.user.id);
+                    $('#editItemForm #id').val(data.service.id);
                     var selected_company_id = data.selected_company.id;
-                    var selected_company = '';
+                    var selected = '';
                     $.each(data.companies, function (key, value) {
-                        if (value['id'] === selected_company_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
-                            selected_company = ' selected';
+                        if (value['id'] === selected_company_id && data.service.title !== "Yeni Servis") {
+                            selected = ' selected';
                         }
-                        $("#editItemForm #company_id").append($("<option " + selected_company + "></option>").attr("value", value['id']).text(value['title']));
-                        selected_company = '';
+                        $("#editItemForm #company_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
+                        selected = '';
                     });
-                    var selected_department_id = data.selected_department.id;
-                    var selected_department = '';
-                    $("#editItemForm #department_id").html(null);
-                    $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
-                    $.each(data.departments_of_category, function (key, value) {
-                        if (value['id'] === selected_department_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
-                            selected_department = ' selected';
+                    if (data.service.title === "Yeni Servis")
+                        $('#editItemForm #title_current').val(data.service.title);
+                    else
+                        $('#editItemForm #title').val(data.service.title);
+                    $('#editItemForm #price').val(data.service.price);
+                    $('#editItemForm #currency_id').val(data.service.currency_id);
+                    $('#editItemForm #first_payment_time').val(data.service.first_payment_time);
+                    $('#editItemForm #last_payment_time').val(data.service.last_payment_time);
+                    $('#editItemForm #next_payment_time').html(data.next_payment_time);
+                    var service_status = data.service_status;
+                    var selected = '';
+                    $.each(data.status_values, function (key, value) {
+                        if (key == service_status) {
+                            selected = ' selected';
                         }
-                        $("#editItemForm #department_id").append($("<option " + selected_department + "></option>").attr("value", value['id']).text(value['title']));
-                        selected_department = '';
+                        $("#editItemForm #status").append($("<option " + selected + "></option>").attr("value", key).text(value));
+                        selected = '';
                     });
-                    $('#editItemForm #first_name').val(data.user.first_name);
-                    $('#editItemForm #last_name').val(data.user.last_name);
-                    var user_email = data.user.email;
-                    if (user_email.substr(0, 29) !== 'randomEmailForNewUsersOfRCMS@')
-                        $('#editItemForm #email').val(data.user.email);
-                    $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.user.id + ', "' + data.user.first_name + ' ' + data.user.last_name + '");');
+                    $('#editItemForm #days_left').html(data.days_left);
+                    if (data.service.title === "Yeni Servis")
+                        $('#editItemForm #delete_button').attr('onclick', 'deleteRequest(' + data.service.id + ');');
+                    else
+                        $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.service.id + ', "' + data.service.title + '");');
                     $('#editItemButton').click();
                 },
             });
-        }
-    </script>
-    <script type="text/javascript">
-        function getDepartmentsOfCompany() {
-            $('#editItemForm #department_id').val();
-            $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text('Lütfen seçiniz'));
-            var company_id = $('#editItemForm #company_id').val();
-            if (company_id > 0) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route("company.departments") }}",
-                    data: {
-                        id: company_id,
-                    },
-                    success: function (data) {
-                        $('#editItemForm #department_id').html('');
-                        $('#editItemForm #department_id').val();
-                        $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text('Lütfen seçiniz'));
-                        $.each(data.departments, function (key, value) {
-                            $("#editItemForm #department_id").append($("<option></option>").attr("value", value['id']).text(value['title']));
-                        });
-                    },
-                });
-                return false;
-            }
         }
     </script>
     <!-- Datatables -->

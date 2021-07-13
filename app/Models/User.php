@@ -48,21 +48,34 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function current_user()
+    {
+        return auth()->user();
+    }
+
     public function name_surname()
     {
         return $this->first_name . ' ' . $this->last_name;
     }
 
+    public function current_database()
+    {
+        return $this->hasOne(Database::class, 'id', 'current_database_id');
+    }
+
+    public function current_company()
+    {
+        return $this->hasOne(Company::class, 'id', 'current_company_id');
+    }
+
     public function company()
     {
-        $company = Company::where('id', $this->company_id)->first();
-        return $company;
+        return $this->hasOne(Company::class, 'id', 'company_id');
     }
 
     public function department()
     {
-        $department = Department::where('id', $this->department_id)->first();
-        return $department;
+        return $this->hasOne(Department::class, 'id', 'department_id');
     }
 
 }

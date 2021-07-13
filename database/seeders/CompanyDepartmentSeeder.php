@@ -35,6 +35,7 @@ class CompanyDepartmentSeeder extends Seeder
         ]);
 
         User::create([
+            'current_company_id' => $company->id,
             'company_id' => $company->id,
             'department_id' => $department->id,
             'first_name' => 'Berat',
@@ -62,6 +63,7 @@ class CompanyDepartmentSeeder extends Seeder
         ]);
 
         User::create([
+            'current_company_id' => $company->id,
             'company_id' => $company->id,
             'department_id' => $department->id,
             'first_name' => 'Ali',

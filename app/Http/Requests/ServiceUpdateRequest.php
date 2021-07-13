@@ -38,7 +38,7 @@ class ServiceUpdateRequest extends FormRequest
         return [
             'company_id' => 'required',
             'title' => 'required',
-            'price' => 'required',
+            'price' => 'required|regex:/^\d*(\.\d{2})?$/',
             'currency_id' => 'required',
             'first_payment_time' => 'required|date|before_or_equal:last_payment_time|date_format:Y-m-d',
             'last_payment_time' => 'required|date|before_or_equal:today|date_format:Y-m-d',

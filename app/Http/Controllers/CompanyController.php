@@ -12,7 +12,7 @@ class CompanyController extends Controller
     public function list()
     {
         $companies = Company::all();
-        return view('company.list', compact([
+        return view('rcms.company.list', compact([
             'companies', $companies,
         ]));
     }

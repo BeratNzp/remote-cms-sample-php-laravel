@@ -16,7 +16,7 @@ class AuthController extends Controller
 
     public function login_form()
     {
-        return view('user.login');
+        return view('rcms.user.login');
     }
 
     public function login_action(UserLoginRequest $request)
@@ -42,7 +42,7 @@ class AuthController extends Controller
 
     public function register_form()
     {
-        return view('user.register');
+        return view('rcms.user.register');
     }
 
     public function register_action()

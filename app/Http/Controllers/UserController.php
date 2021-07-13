@@ -15,7 +15,7 @@ class UserController extends Controller
     public function list()
     {
         $users = User::all();
-        return view('user.list', compact([
+        return view('rcms.user.list', compact([
             'users', $users,
         ]));
     }

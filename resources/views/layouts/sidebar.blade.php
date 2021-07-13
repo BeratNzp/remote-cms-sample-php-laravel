@@ -12,7 +12,7 @@
                 </a>
                 <ul class="nav child_menu">
                     <li>
-                        <a href="#">
+                        <a href="{{ route("category.list") }}">
                             <i class="fa fa-ellipsis-h"></i> Kategoriler
                         </a>
                     </li>
@@ -123,8 +123,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
-                            <i class="fa fa-cog"></i> Yapılandırma
+                        <a href="{{ route("database.list") }}">
+                            <i class="fa fa-cog"></i> Veritabanları
                         </a>
                     </li>
                     <li>

@@ -8,6 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +55,26 @@ Route::group(['prefix' => 'service'], function () {
     Route::post('create', [ServiceController::class, 'create'])->middleware('auth')->name('service.create');
     Route::post('update', [ServiceController::class, 'update'])->middleware('auth')->name('service.update');
     Route::post('delete', [ServiceController::class, 'delete'])->middleware('auth')->name('service.delete');
+    Route::post('calculate_next_payment_time', [ServiceController::class, 'calculate_next_payment_time'])->middleware('auth')->name('service.calculate_next_payment_time');
+});
+
+Route::group(['prefix' => 'database'], function () {
+    Route::get('list', [DatabaseController::class, 'list'])->middleware('auth')->name('database.list');
+    Route::post('detail', [DatabaseController::class, 'detail'])->middleware('auth')->name('database.detail');
+    Route::post('check', [DatabaseController::class, 'check'])->middleware('auth')->name('database.check');
+    Route::post('migrate', [DatabaseController::class, 'migrate'])->middleware('auth')->name('database.migrate');
+    Route::post('create', [DatabaseController::class, 'create'])->middleware('auth')->name('database.create');
+    Route::post('update', [DatabaseController::class, 'update'])->middleware('auth')->name('database.update');
+    Route::post('delete', [DatabaseController::class, 'delete'])->middleware('auth')->name('database.delete');
+});
+
+Route::group(['prefix' => 'category'], function () {
+    Route::get('list', [CategoryController::class, 'list'])->middleware('auth')->name('category.list');
+    Route::post('detail', [CategoryController::class, 'detail'])->middleware('auth')->name('category.detail');
+    Route::post('categories_of_type', [CategoryController::class, 'categories_of_type'])->middleware('auth')->name('category.categories_of_type');
+    Route::post('create', [CategoryController::class, 'create'])->middleware('auth')->name('category.create');
+    Route::post('update', [CategoryController::class, 'update'])->middleware('auth')->name('category.update');
+    Route::post('delete', [CategoryController::class, 'delete'])->middleware('auth')->name('category.delete');
 });
 
 Route::group(['prefix' => 'user'], function () {

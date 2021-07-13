@@ -24,6 +24,7 @@ class CreateCompanyTable extends Migration
         });
         Schema::table('user', function (Blueprint $table) {
             $table->foreign('company_id')->references('id')->on('company');
+            $table->foreign('current_company_id')->references('id')->on('company');
         });
     }
 

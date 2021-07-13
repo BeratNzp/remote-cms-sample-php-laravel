@@ -25,6 +25,7 @@ class Service extends Model
         'currency_id',
         'first_payment_time',
         'last_payment_time',
+        'status'
     ];
 
 
