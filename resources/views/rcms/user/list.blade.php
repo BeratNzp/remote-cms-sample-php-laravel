@@ -1,5 +1,5 @@
 @extends('master')
-@section('page_title', 'Veritabanı Bağlantıları')
+@section('page_title', 'Kullanıcılar')
 @section('page_head')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 @endsection
@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Veritabanı Bağlantılarını Listele</h2>
+                        <h2>Kullanıcıları Listele</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -27,24 +27,30 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Şirket</th>
-                                <th>Veritabanı</th>
-                                <th>İşlem</th>
+                                <th width="5%">ID</th>
+                                <th width="5">Şirket</th>
+                                <th width="5">Departman</th>
+                                <th width="27">İsim</th>
+                                <th width="27">Soyisim</th>
+                                <th width="16">Email</th>
+                                <th width="15%">İşlem</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($databases as $database)
+                            @foreach($users as $user)
                                 <tr>
-                                    <td>{{ $database->id }}</td>
-                                    <td>{{ isset($database->company->title) ? $database->company->title : '' }}</td>
-                                    <td>{{ $database->database }}</td>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->company->title }}</td>
+                                    <td>{{ $user->department->title }}</td>
+                                    <td>{{ $user->first_name }}</td>
+                                    <td>{{ $user->last_name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
-                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $database->id }});">
+                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $user->id }});">
                                             Düzenle
                                         </button>
                                         <button class="btn btn-danger btn-sm"
-                                                onclick="runDeleteModal({{ $database->id }},'{{ $database->title }}');">
+                                                onclick="runDeleteModal({{ $user->id }},'{{ $user->first_name }} {{ $user->last_name }}');">
                                             Sil
                                         </button>
                                     </td>
@@ -55,29 +61,8 @@
                         <form>
                             <input type="hidden" id="editItemButton" data-toggle="modal" data-target="#editItem">
                             <input type="hidden" id="deleteItemButton" data-toggle="modal" data-target="#deleteItem">
-                            <input type="hidden" id="migrateItemButton" data-toggle="modal" data-target="#migrateItem">
                         </form>
                     </div> <!-- .content -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Migrate Modal -->
-    <div class="modal fade" id="migrateItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sıfırla & Güncelle</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="migrateItemModalBody">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="migrateItemAction" class="btn btn-danger">Sıfırla & Güncelle</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
                 </div>
             </div>
         </div>
@@ -133,7 +118,8 @@
                             <label for="company_id"
                                    class="col-form-label col-md-3 col-sm-3 label-align">Şirket</label>
                             <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="company_id" name="company_id">
+                                <select class="form-control has-feedback-left" id="company_id" name="company_id"
+                                        onchange="getDepartmentsOfCompany();">
                                     <option value="">Lütfen seçiniz</option>
                                 </select>
                                 <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
@@ -141,32 +127,43 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="ipv4"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">IPv4</label>
+                            <label for="department_id"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Departman</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="ipv4"
-                                       id="ipv4" onchange="checkConnection();">
-                                <span class="fa fa-plug form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
-                            <label for="port"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Port</label>
-                            <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="port"
-                                       id="port" onchange="checkConnection();">
+                                <select class="form-control has-feedback-left" id="department_id" name="department_id">
+                                    <option value="">Lütfen seçiniz</option>
+                                </select>
                                 <span class="fa fa-sitemap form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="username"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Kullanıcı Adı</label>
+                            <label for="first_name"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">İsim</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="text" class="form-control has-feedback-left" name="username"
-                                       id="username" onchange="checkConnection();">
-                                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                                <input type="text" class="form-control has-feedback-left" name="first_name"
+                                       id="first_name">
+                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="last_name"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Soyisim</label>
+                            <div class="col-md-6 col-sm-12">
+                                <input type="text" class="form-control has-feedback-left" name="last_name"
+                                       id="last_name">
+                                <span class="fa fa-user-secret form-control-feedback left" aria-hidden="true"></span>
+                            </div>
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="item form-group">
+                            <label for="email"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+                            <div class="col-md-6 col-sm-12">
+                                <input type="email" class="form-control has-feedback-left" name="email"
+                                       id="email">
+                                <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
@@ -175,37 +172,25 @@
                                    class="col-form-label col-md-3 col-sm-3 label-align">Parola</label>
                             <div class="col-md-6 col-sm-12">
                                 <input type="password" class="form-control has-feedback-left" name="password"
-                                       id="password" onchange="checkConnection();">
+                                       id="password">
                                 <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="database"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Veritabanı</label>
+                            <label for="password_confirmation"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Parola (Tekrar)</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="hidden" name="title" id="database_current">
-                                <input type="text" class="form-control has-feedback-left" name="database"
-                                       id="database" onchange="checkConnection();">
-                                <span class="fa fa-database form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="ln_solid"></div>
-                        <div class="item">
-                            <label for="check_connection"
-                                   class="col-form-label col-md-3 col-sm-12 label-align">Veritabanı Vağlantısı
-                                Testi</label>
-                            <div class="col-form-label col-md-6 col-sm-12">
-                                <div id="check_connection"></div>
+                                <input type="password" class="form-control has-feedback-left"
+                                       name="password_confirmation"
+                                       id="password_confirmation">
+                                <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="item form-group">
                             <div class="col-md-6 col-sm-6 offset-md-3">
-                                <button type="button" id="migrate_button" class="btn btn-danger">Sıfırla & Güncelle
-                                </button>
                                 <button type="submit" id="submit_button" class="btn btn-success float-right">Kaydet
                                 </button>
                                 <button type="button" id="delete_button" class="btn btn-danger float-right">
@@ -221,139 +206,9 @@
 @endsection
 @section('page_scripts')
     <script type="text/javascript">
-        function checkConnection() {
-            $('#check_connection').html(null);
-            var inputs = $('#editItemForm .form-group');
-            inputs.removeClass('has-error');
-            inputs.find('.help-block').html(null);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                data: {
-                    ipv4: $('#editItemForm #ipv4').val(),
-                    port: $('#editItemForm #port').val(),
-                    username: $('#editItemForm #username').val(),
-                    password: $('#editItemForm #password').val(),
-                    database: $('#editItemForm #database').val(),
-                },
-                url: "{{ route("database.check") }}",
-                beforeSend: function () {
-                    $('#submit_button').prop('disabled', true);
-                    $('#migrate_button').prop('disabled', true);
-                    $('#migrateItemAction').prop('disabled', true);
-                    $('#check_connection').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}"> Bağlantı testi yapılıyor... Lütfen bekleyin');
-                },
-                success: function (data) {
-                    if (data == true) {
-                        $('#submit_button').prop('disabled', false);
-                        $('#migrate_button').prop('disabled', false);
-                        $('#migrateItemAction').prop('disabled', false);
-                        $('#check_connection').html('<span class="text-success"><i class="fa fa-check" aria-hidden="true"></i> Başarılı.</span>');
-                    } else {
-                        $('#check_connection').html('<span class="text-danger"><i class="fa fa-check" aria-hidden="true"></i> Bağlantı kurulamadı. Lütfen ayarlarınızı kontrol edin.</span>');
-                    }
-                },
-                error: function (data) {
-                    $('#check_connection').html(data);
-                    if (data.responseJSON.errors) {
-                        var msg_field = '';
-                        $.each(data.responseJSON.errors, function (key, value) {
-                            var formGroup = $("#editItemForm #" + key).closest(".form-group");
-                            formGroup.addClass('has-error');
-                            formGroup.find('.help-block').html(value[0]);
-                            msg_field += '<li>' + value[0] + '</li>';
-                        });
-                        new PNotify({
-                            title: 'Hata',
-                            text: msg_field,
-                            type: 'warning',
-                            delay: 1500,
-                            styling: 'bootstrap3'
-                        });
-                    } else {
-                        var msg_field = data.responseJSON.message;
-                        new PNotify({
-                            title: 'Hata',
-                            text: msg_field,
-                            type: 'warning',
-                            delay: 1500,
-                            styling: 'bootstrap3'
-                        });
-                    }
-                }
-            });
-            return false;
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#migrate_button').prop('disabled', true);
-        });
-
-        function runMigrateModal(id, title) {
-            $('#closeEditItem').click();
-            var html_migrate_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> veritabanı sıfırlamak ve güncellemek istediğinize emin misiniz ?';
-            $('#migrateItemModalBody').html(html_migrate_body);
-            $('#migrateItemAction').attr('onclick', 'migrateRequest(' + id + ');');
-            $('#migrateItemButton').click();
-        }
-    </script>
-    <script type="text/javascript">
-        function migrateRequest(id) {
-            $('#migrateItemAction').prop('disabled', true);
-            $('#migrateItemAction').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}"> Sıfırla & Güncelle');
-            setTimeout(function () {
-                $('#migrateItemAction #migrate_button').prop('disabled', false);
-                $('#migrateItemAction #migrate_button').html('Sıfırla & Güncelle');
-            }, 2000);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                data: {
-                    id: id,
-                },
-                url: "{{ route("database.migrate") }}",
-                success: function (data) {
-                    new PNotify({
-                        title: data.messages.title,
-                        text: data.messages.message,
-                        type: data.messages.status,
-                        delay: 3000,
-                        styling: 'bootstrap3'
-                    });
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1500);
-                },
-                error: function (data) {
-                    var msg_field = data.responseJSON.message;
-                    new PNotify({
-                        title: 'Hata',
-                        text: msg_field,
-                        type: 'warning',
-                        delay: 1500,
-                        styling: 'bootstrap3'
-                    });
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1500);
-                }
-            });
-            return false;
-        }
-    </script>
-    <script type="text/javascript">
         function runDeleteModal(id, title) {
             $('#closeEditItem').click();
-            var html_delete_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> veritabanı bağlantısını silmek istediğinize emin misiniz ?';
+            var html_delete_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> kullanıcısını silmek istediğinize emin misiniz ?';
             $('#deleteItemModalBody').html(html_delete_body);
             $('#deleteItemAction').attr('onclick', 'deleteRequest(' + id + ');');
             $('#deleteItemButton').click();
@@ -377,7 +232,7 @@
                 data: {
                     id: id,
                 },
-                url: "{{ route("database.delete") }}",
+                url: "{{ route("user.delete") }}",
                 success: function (data) {
                     new PNotify({
                         title: data.messages.title,
@@ -403,7 +258,6 @@
                     });
                 }
             });
-            return false;
         }
     </script>
     <script type="text/javascript">
@@ -415,7 +269,7 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("database.create") }}",
+                url: "{{ route("user.create") }}",
                 success: function (data) {
                     detail(data);
                     $('#editItemButton').click();
@@ -431,12 +285,11 @@
                     });
                 }
             });
-            return false;
         });
     </script>
     <script type="text/javascript">
         $(document).on('click', '#closeEditItem', function () {
-            if ($('#editItemForm #database_current').val() === 'Yeni Veritabanı Bağlantısı')
+            if ($('#editItemForm #first_name').val() === 'İsim' && $('#editItemForm #last_name').val() === 'Soyisim')
                 deleteRequest($('#editItemForm #id').val());
         });
     </script>
@@ -460,16 +313,17 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("database.update") }}",
+                url: "{{ route("user.update") }}",
                 enctype: "multipart/form-data",
                 data: {
                     id: $('#editItemForm #id').val(),
                     company_id: $('#editItemForm #company_id').val(),
-                    ipv4: $('#editItemForm #ipv4').val(),
-                    port: $('#editItemForm #port').val(),
-                    username: $('#editItemForm #username').val(),
+                    department_id: $('#editItemForm #department_id').val(),
+                    first_name: $('#editItemForm #first_name').val(),
+                    last_name: $('#editItemForm #last_name').val(),
+                    email: $('#editItemForm #email').val(),
                     password: $('#editItemForm #password').val(),
-                    database: $('#editItemForm #database').val(),
+                    password_confirmation: $('#editItemForm #password_confirmation').val(),
                 },
                 success: function (data) {
                     new PNotify({
@@ -520,6 +374,8 @@
         function detail(id) {
             $("#editItemForm #company_id").html(null);
             $("#editItemForm #company_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
+            $("#editItemForm #department_id").html(null);
+            $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen önce şirket seçiniz"));
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -527,41 +383,71 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("database.detail") }}",
+                url: "{{ route("user.detail") }}",
                 data: {
                     id: id,
                 },
                 success: function (data) {
-                    $('#editItemForm #id').val(data.database.id);
+                    $('#editItemForm #id').val(data.user.id);
                     var selected_company_id = data.selected_company.id;
-                    var selected = '';
+                    var selected_company = '';
                     $.each(data.companies, function (key, value) {
-                        if (value['id'] === selected_company_id && data.database.title !== "Yeni Veritabanı Bağlantısı") {
-                            selected = ' selected';
+                        if (value['id'] === selected_company_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
+                            selected_company = ' selected';
                         }
-                        $("#editItemForm #company_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
-                        selected = '';
+                        $("#editItemForm #company_id").append($("<option " + selected_company + "></option>").attr("value", value['id']).text(value['title']));
+                        selected_company = '';
                     });
-                    $('#editItemForm #ipv4').val(data.database.ipv4);
-                    $('#editItemForm #port').val(data.database.port);
-                    $('#editItemForm #username').val(data.database.username);
-                    $('#editItemForm #password').val(data.database.password);
-                    if (data.database.database === "Yeni Veritabanı Bağlantısı")
-                        $('#editItemForm #database_current').val(data.database.database);
-                    else
-                        $('#editItemForm #database').val(data.database.database);
-                    if (data.database.database === "Yeni Veritabanı Bağlantısı")
-                        $('#editItemForm #delete_button').attr('onclick', 'deleteRequest(' + data.database.id + ');');
-                    else
-                        $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.database.id + ', "' + data.database.database + '");');
-                    if (data.database.database === "Yeni Veritabanı Bağlantısı")
-                        $('#editItemForm #migrate_button').attr('onclick', 'migrateRequest(' + data.database.id + ');');
-                    else
-                        $('#editItemForm #migrate_button').attr('onclick', 'runMigrateModal(' + data.database.id + ', "' + data.database.database + '");');
+                    var selected_department_id = data.selected_department.id;
+                    var selected_department = '';
+                    $("#editItemForm #department_id").html(null);
+                    $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
+                    $.each(data.departments_of_category, function (key, value) {
+                        if (value['id'] === selected_department_id && data.user.first_name !== 'İsim' && data.user.last_name !== 'Soyisim') {
+                            selected_department = ' selected';
+                        }
+                        $("#editItemForm #department_id").append($("<option " + selected_department + "></option>").attr("value", value['id']).text(value['title']));
+                        selected_department = '';
+                    });
+                    $('#editItemForm #first_name').val(data.user.first_name);
+                    $('#editItemForm #last_name').val(data.user.last_name);
+                    var user_email = data.user.email;
+                    if (user_email.substr(0, 29) !== 'randomEmailForNewUsersOfRCMS@')
+                        $('#editItemForm #email').val(data.user.email);
+                    $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.user.id + ', "' + data.user.first_name + ' ' + data.user.last_name + '");');
                     $('#editItemButton').click();
-                    checkConnection();
                 },
             });
+        }
+    </script>
+    <script type="text/javascript">
+        function getDepartmentsOfCompany() {
+            $('#editItemForm #department_id').val();
+            $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text('Lütfen seçiniz'));
+            var company_id = $('#editItemForm #company_id').val();
+            if (company_id > 0) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route("company.departments") }}",
+                    data: {
+                        id: company_id,
+                    },
+                    success: function (data) {
+                        $('#editItemForm #department_id').html('');
+                        $('#editItemForm #department_id').val();
+                        $("#editItemForm #department_id").append($("<option></option>").attr("value", "").text('Lütfen seçiniz'));
+                        $.each(data.departments, function (key, value) {
+                            $("#editItemForm #department_id").append($("<option></option>").attr("value", value['id']).text(value['title']));
+                        });
+                    },
+                });
+                return false;
+            }
         }
     </script>
     <!-- Datatables -->

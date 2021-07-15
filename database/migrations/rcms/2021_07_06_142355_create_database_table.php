@@ -16,7 +16,7 @@ class CreateDatabaseTable extends Migration
         Schema::create('database', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('company_id');
-            $table->string("ip", "64")->nullable();
+            $table->string("ipv4", "64")->nullable();
             $table->string("port", "5")->nullable();
             $table->string("username", "256")->nullable();
             $table->string("password", "256")->nullable();

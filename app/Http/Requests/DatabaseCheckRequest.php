@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DatabaseUpdateRequest extends FormRequest
+class DatabaseCheckRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +19,6 @@ class DatabaseUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'company_id' => 'Şirket',
             'ipv4' => 'IPv4',
             'port' => 'Port',
             'username' => 'Kullanıcı Adı',
@@ -36,7 +35,6 @@ class DatabaseUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_id' => 'required',
             'ipv4' => 'required|ipv4',
             'port' => 'required|integer|between:1024,65535',
             'username' => 'required',

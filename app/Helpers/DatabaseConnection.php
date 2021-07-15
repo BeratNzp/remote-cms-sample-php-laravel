@@ -15,7 +15,7 @@ class DatabaseConnection
             [
                 'driver' => 'mysql',
                 'url' => env('DATABASE_URL'),
-                'host' => $database->ip,
+                'host' => $database->ipv4,
                 'port' => $database->port,
                 'database' => $database->database,
                 'username' => $database->username,
@@ -39,7 +39,7 @@ class DatabaseConnection
             [
                 'driver' => 'mysql',
                 'url' => env('DATABASE_URL'),
-                'host' => $parameters['ip'],
+                'host' => $parameters['ipv4'],
                 'port' => $parameters['port'],
                 'database' => $parameters['database'],
                 'username' => $parameters['username'],
@@ -55,16 +55,9 @@ class DatabaseConnection
             ]]);
         try {
             DB::connection('panel_user')->getPdo();
-            echo "Başarılı";
-            /*
-            if(DB::connection('panel_user')->getDatabaseName()){
-                echo DB::connection('panel_user')->getDatabaseName() . "isimli tabloya başarıyla bağlanıldı";
-            }else{
-                die("Veritabanı bulunamadı. Lütfen ayarlarınızı kontrol edin.");
-            }
-            */
+            return true;
         } catch (\Exception $e) {
-            die("Bağlantı kurulamadı. Lütfen ayarlarınızı kontrol edin.");
+            return false;
         }
     }
 }

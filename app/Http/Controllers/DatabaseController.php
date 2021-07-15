@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client\Category;
-use App\Models\Company;
+use App\Models\RCMS\Company;
 use Illuminate\Http\Request;
-use App\Models\Database;
+use App\Models\RCMS\Database;
 use App\Http\Requests\DatabaseUpdateRequest;
+use App\Http\Requests\DatabaseCheckRequest;
 use App\Helpers\DatabaseConnection;
 use Illuminate\Support\Facades\Artisan;
 
@@ -36,7 +36,7 @@ class DatabaseController extends Controller
         $database = Database::find($request->id);
         if ($database->update([
             'company_id' => $request->company_id,
-            'ip' => $request->ip,
+            'ipv4' => $request->ipv4,
             'port' => $request->port,
             'username' => $request->username,
             'password' => $request->password,
@@ -75,9 +75,9 @@ class DatabaseController extends Controller
         ]);
     }
 
-    public function check(Request $request)
+    public function check(DatabaseCheckRequest $request)
     {
-        $parameters['ip'] = $request->ip;
+        $parameters['ipv4'] = $request->ipv4;
         $parameters['port'] = $request->port;
         $parameters['username'] = $request->username;
         $parameters['password'] = $request->password;
@@ -89,7 +89,8 @@ class DatabaseController extends Controller
     public function migrate(Request $request)
     {
         DatabaseConnection::setConnection();
-        if (Artisan::call('migrate:fresh', array('--path' => 'database/migrations/client/', '--database' => 'panel_user'))) {
+        $migrate_result = Artisan::call('migrate:fresh', array('--path' => 'database/migrations/client/', '--database' => 'panel_user'));
+        if ($migrate_result == 0) {
             $messages = [
                 'status' => 'success',
                 'title' => 'Sıfırlandı & Güncellendi',

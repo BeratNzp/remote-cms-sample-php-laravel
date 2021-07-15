@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models\Client;
+namespace App\Models\RCMS;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class County extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $connection = 'panel_user';
-    protected $table = 'category';
+    protected $table = 'county';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -18,14 +18,12 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'up_category_id',
-        'type_id',
+        'city_id',
         'title',
-        'can_sub_category_id',
     ];
 
-    public function up_category()
+    public function city()
     {
-        return $this->hasOne(Category::class, 'id', 'up_category_id');
+        return $this->hasOne(City::class, 'id', 'city_id');
     }
 }

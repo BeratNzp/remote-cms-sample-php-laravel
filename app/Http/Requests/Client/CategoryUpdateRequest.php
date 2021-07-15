@@ -20,7 +20,7 @@ class CategoryUpdateRequest extends FormRequest
     {
         return [
             'up_category_id' => 'Üst Kategori',
-            'type_id' => 'Tip',
+            'type_id' => 'Kategori Tipi',
             'title' => 'Başlık',
         ];
     }

@@ -1,8 +1,7 @@
 @extends('master')
-@section('page_title', 'Kategoriler')
+@section('page_title', 'Şirketler')
 @section('page_head')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset("vendors/switchery/dist/switchery.min.css") }}">
 @endsection
 @section('page_content')
     <div class="col-md-12 col-sm-12 ">
@@ -10,7 +9,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Kategorileri Listele</h2>
+                        <h2>Şirketleri Listele</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -28,34 +27,29 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Kategori</th>
-                                <th>Üst Kategori</th>
-                                <th>Tip</th>
-                                <th>İşlem</th>
+                                <th width="5%">ID</th>
+                                <th width="30%">Marka</th>
+                                <th width="50%">Şirket</th>
+                                <th width="15%">İşlem</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @if(isset($categories))
-                                @foreach($categories as $category)
-                                    <tr>
-                                        <td>{{ $category->id }}</td>
-                                        <td>{{ $category->title }}</td>
-                                        <td>{{ isset($category->up_category) ? $category->up_category->title : '' }}</td>
-                                        <td>{{ \App\Enums\CategoryType::getDescription(\App\Enums\CategoryType::parseDatabase($category->type_id)) }}</td>
-                                        <td>
-                                            <button class="btn btn-primary btn-sm"
-                                                    onclick="detail({{ $category->id }});">
-                                                Düzenle
-                                            </button>
-                                            <button class="btn btn-danger btn-sm"
-                                                    onclick="runDeleteModal({{ $category->id }},'{{ $category->title }}');">
-                                                Sil
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @endif
+                            @foreach($companies as $company)
+                                <tr>
+                                    <td>{{ $company->id }}</td>
+                                    <td>{{ $company->title }}</td>
+                                    <td>{{ $company->company_title }}</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" onclick="detail({{ $company->id }});">
+                                            Düzenle
+                                        </button>
+                                        <button class="btn btn-danger btn-sm"
+                                                onclick="runDeleteModal({{ $company->id }},'{{ $company->title }}');">
+                                            Sil
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                         <form>
@@ -115,48 +109,24 @@
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="type_id"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Kategori Tipi</label>
-                            <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="type_id" name="type_id"
-                                        onchange="getCategoriesOfType();">
-                                    <option value="">Lütfen seçiniz</option>
-                                </select>
-                                <span class="fa fa-sticky-note-o form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
-                            <label for="up_category_id"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Üst Kategori</label>
-                            <div class="col-md-6 col-sm-12">
-                                <select class="form-control has-feedback-left" id="up_category_id"
-                                        name="up_category_id">
-                                    <option value="">Üst kategori yok</option>
-                                </select>
-                                <span class="fa fa-ellipsis-h form-control-feedback left" aria-hidden="true"></span>
-                            </div>
-                            <span class="help-block"></span>
-                        </div>
-                        <div class="item form-group">
                             <label for="title"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Başlık</label>
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Marka</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="hidden" name="title" id="title_current">
                                 <input type="text" class="form-control has-feedback-left" name="title"
                                        id="title">
-                                <span class="fa fa-ellipsis-h form-control-feedback left" aria-hidden="true"></span>
+                                <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
                             </div>
                             <span class="help-block"></span>
                         </div>
                         <div class="item form-group">
-                            <label for="title"
-                                   class="col-form-label col-md-3 col-sm-3 label-align">Alt Kategorisi Olabilir</label>
+                            <label for="company_title"
+                                   class="col-form-label col-md-3 col-sm-3 label-align">Şirket Ünvanı</label>
                             <div class="col-md-6 col-sm-12">
-                                <input type="checkbox" class="custom_switchery" id="can_sub_category_id"
-                                       data-switchery="true"
-                                       name="can_sub_category_id"/>
+                                <input type="text" class="form-control has-feedback-left" name="company_title"
+                                       id="company_title">
+                                <span class="fa fa-building form-control-feedback left" aria-hidden="true"></span>
                             </div>
+                            <span class="help-block"></span>
                         </div>
                         <div class="ln_solid"></div>
                         <div class="item form-group">
@@ -176,51 +146,11 @@
 @endsection
 @section('page_scripts')
     <script type="text/javascript">
-        function getCategoriesOfType() {
-            $('#editItemForm #up_category_id').html('');
-            $('#editItemForm #up_category_id').val();
-            $("#editItemForm #up_category_id").append($("<option></option>").attr("value", "").text('Üst kategori yok'));
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                url: "{{ route("category.categories_of_type") }}",
-                data: {
-                    type_id: $('#editItemForm #type_id').val(),
-                    id: $('#editItemForm #id').val(),
-                },
-                success: function (data) {
-                    $('#editItemForm #up_category_id').html('');
-                    $('#editItemForm #up_category_id').val();
-                    $("#editItemForm #up_category_id").append($("<option></option>").attr("value", "").text('Üst kategori yok'));
-                    /////////////
-                    var selected_up_category_id = '';
-                    if (data.selected_up_category)
-                        selected_up_category_id = data.selected_up_category.id;
-                    else
-                        selected_up_category_id = 0;
-                    var selected = '';
-                    $.each(data.categories, function (key, value) {
-                        if (value['id'] === selected_up_category_id && data.selected_category.title !== "Yeni Kategori") {
-                            selected = ' selected';
-                        }
-                        $("#editItemForm #up_category_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
-                        selected = '';
-                    });
-                },
-            });
-            return false;
-        }
-    </script>
-    <script type="text/javascript">
-        function runDeleteModal(id, title) {
+        function runDeleteModal(company_id, title) {
             $('#closeEditItem').click();
-            var html_delete_body = '<strong>' + id + '</strong> numaralı <strong>' + title + '</strong> veritabanı bağlantısını silmek istediğinize emin misiniz ?';
+            var html_delete_body = '<strong>' + company_id + '</strong> numaralı <strong>' + title + '</strong> şirketini silmek istediğinize emin misiniz ?';
             $('#deleteItemModalBody').html(html_delete_body);
-            $('#deleteItemAction').attr('onclick', 'deleteRequest(' + id + ');');
+            $('#deleteItemAction').attr('onclick', 'deleteRequest(' + company_id + ');');
             $('#deleteItemButton').click();
         }
     </script>
@@ -242,7 +172,7 @@
                 data: {
                     id: id,
                 },
-                url: "{{ route("category.delete") }}",
+                url: "{{ route("company.delete") }}",
                 success: function (data) {
                     new PNotify({
                         title: data.messages.title,
@@ -257,16 +187,6 @@
                         }, 1500);
                     }
                 },
-                error: function (data) {
-                    var msg_field = data.responseJSON.message;
-                    new PNotify({
-                        title: 'Hata',
-                        text: msg_field,
-                        type: 'warning',
-                        delay: 1500,
-                        styling: 'bootstrap3'
-                    });
-                }
             });
         }
     </script>
@@ -279,26 +199,17 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("category.create") }}",
+                url: "{{ route("company.create") }}",
                 success: function (data) {
                     detail(data);
+                    $('#editItemButton').click();
                 },
-                error: function (data) {
-                    var msg_field = data.responseJSON.message;
-                    new PNotify({
-                        title: 'Hata',
-                        text: msg_field,
-                        type: 'warning',
-                        delay: 1500,
-                        styling: 'bootstrap3'
-                    });
-                }
             });
         });
     </script>
     <script type="text/javascript">
         $(document).on('click', '#closeEditItem', function () {
-            if ($('#editItemForm #category_current').val() === 'Yeni Kategori')
+            if ($('#editItemForm #title').val() === 'Yeni Marka')
                 deleteRequest($('#editItemForm #id').val());
         });
     </script>
@@ -322,14 +233,12 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("category.update") }}",
+                url: "{{ route("company.update") }}",
                 enctype: "multipart/form-data",
                 data: {
                     id: $('#editItemForm #id').val(),
-                    up_category_id: $('#editItemForm #up_category_id').val(),
-                    type_id: $('#editItemForm #type_id').val(),
                     title: $('#editItemForm #title').val(),
-                    can_sub_category_id: $('#editItemForm #can_sub_category_id').prop('checked'),
+                    company_title: $('#editItemForm #company_title').val(),
                 },
                 success: function (data) {
                     new PNotify({
@@ -377,17 +286,7 @@
         });
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var init = new Switchery($('.custom_switchery'), {checked: false});
-
-            alert(init.checked);
-        });
-
-        function detail(id) {
-            $("#editItemForm #type_id").html(null);
-            $("#editItemForm #type_id").append($("<option></option>").attr("value", "").text("Lütfen seçiniz"));
-            $("#editItemForm #up_category_id").html(null);
-            $("#editItemForm #up_category_id").append($("<option></option>").attr("value", "").text("Üst kategori yok"));
+        function detail(company_id) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -395,48 +294,20 @@
             });
             $.ajax({
                 type: "POST",
-                url: "{{ route("category.detail") }}",
+                url: "{{ route("company.detail") }}",
                 data: {
-                    id: id,
+                    company_id: company_id,
                 },
                 success: function (data) {
-                    $('#editItemForm #id').val(data.category.id);
-                    var selected_type_id = data.selected_type;
-                    var selected = '';
-                    $.each(data.types, function (key, value) {
-                        if (key === selected_type_id && data.category.title !== "Yeni Kategori") {
-                            selected = ' selected';
-                        }
-                        $("#editItemForm #type_id").append($("<option " + selected + "></option>").attr("value", key).text(value));
-                        selected = '';
-                    });
-                    getCategoriesOfType();
-
-
-                    if (data.category.can_sub_category_id === '0') {
-                        // pasif
-                        //$('.custom_switchery').checked = false;
-                    } else if (data.category.can_sub_category_id === '1') {
-                        // aktif
-                        $('.custom_switchery').checked;
-                    }
-
-
-                    if (data.category.title === "Yeni Kategori")
-                        $('#editItemForm #title_current').val(data.category.title);
-                    else
-                        $('#editItemForm #title').val(data.category.title);
-                    if (data.category.title === "Yeni Kategori")
-                        $('#editItemForm #delete_button').attr('onclick', 'deleteRequest(' + data.category.id + ');');
-                    else
-                        $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.category.id + ', "' + data.category.title + '");');
+                    $('#editItemForm #id').val(data.company.id);
+                    $('#editItemForm #title').val(data.company.title);
+                    $('#editItemForm #company_title').val(data.company.company_title);
+                    $('#editItemForm #delete_button').attr('onclick', 'runDeleteModal(' + data.company.id + ', "' + data.company.title + '");');
                     $('#editItemButton').click();
                 },
             });
         }
     </script>
-    <!-- Switchery -->
-    <script src="{{ asset("vendors/switchery/dist/switchery.min.js") }}"></script>
     <!-- Datatables -->
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>

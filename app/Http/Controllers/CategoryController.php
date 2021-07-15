@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\CategoryType;
+use App\Enums\BooleanEnum;
 use App\Models\Client\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\Client\CategoryUpdateRequest;
@@ -12,10 +13,14 @@ class CategoryController extends Controller
 {
     public function list()
     {
-        DatabaseConnection::setConnection();
-        $categories = Category::all();
+        try {
+            DatabaseConnection::setConnection();
+            $categories = Category::all();
+        } catch (\Exception $e) {
+            $categories = null;
+        }
         return view('client.category.list', compact([
-            'categories' , $categories,
+            'categories', $categories,
         ]));
     }
 
@@ -32,10 +37,15 @@ class CategoryController extends Controller
     {
         DatabaseConnection::setConnection();
         $category = Category::find($request->id);
+        if ($request->can_sub_category_id == 'false')
+            $can_sub_category_id = 0;
+        elseif ($request->can_sub_category_id == 'true')
+            $can_sub_category_id = 1;
         if ($category->update([
             'up_category_id' => $request->up_category_id,
             'type_id' => CategoryType::fromValue(CategoryType::parseDatabase($request->type_id)),
             'title' => $request->title,
+            'can_sub_category_id' => BooleanEnum::fromValue(BooleanEnum::parseDatabase($can_sub_category_id)),
         ])) {
             $messages = [
                 'status' => 'success',
@@ -55,25 +65,27 @@ class CategoryController extends Controller
     public function categories_of_type(Request $request)
     {
         DatabaseConnection::setConnection();
-        $category = Category::find($request->id);
-        $categories = Category::where('type_id', $request->type_id)->get()->except([$category->id]);
-        return $categories;
+        $selected_category = Category::find($request->id);
+        $selected_up_category = Category::find($selected_category->up_category_id);
+        $categories = Category::where('can_sub_category_id', BooleanEnum::fromValue(1))->where('type_id', $request->type_id)->get()->except([$selected_category->id]);
+
+        return response()->json([
+            'categories' => $categories,
+            'selected_category' => $selected_category,
+            'selected_up_category' => $selected_up_category,
+        ]);
     }
 
     public function detail(Request $request)
     {
         DatabaseConnection::setConnection();
-        $categories = Category::all();
         $category = Category::find($request->id);
-        $categories = $categories->except([$category->id]);
+
         $types = CategoryType::asSelectArray();
-        $selected_up_category = Category::find($category->up_category_id);
         $selected_type = $category->type_id;
         return response()->json([
-            'categories' => $categories,
             'category' => $category,
             'types' => $types,
-            'selected_up_category' => $selected_up_category,
             'selected_type' => $selected_type,
         ]);
     }

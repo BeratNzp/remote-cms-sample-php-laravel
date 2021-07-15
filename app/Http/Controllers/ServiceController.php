@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ServiceType;
-use App\Models\Company;
-use App\Models\Currency;
+use App\Models\RCMS\Company;
+use App\Models\RCMS\Currency;
 use Illuminate\Http\Request;
-use App\Models\Service;
+use App\Models\RCMS\Service;
 use App\Http\Requests\ServiceUpdateRequest;
 
 class ServiceController extends Controller
