@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+use App\Models\RCMS\Company;
 use Illuminate\Http\Request;
-use App\Models\Department;
+use App\Models\RCMS\Department;
 use App\Http\Requests\DepartmentUpdateRequest;
 
 class DepartmentController extends Controller

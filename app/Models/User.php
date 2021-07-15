@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\RCMS\Company;
+use App\Models\RCMS\Department;
+use App\Models\RCMS\Database;
 
 class User extends Authenticatable
 {

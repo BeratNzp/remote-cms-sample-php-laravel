@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyUpdateRequest;
-use App\Models\Department;
+use App\Models\RCMS\Department;
 use Illuminate\Http\Request;
-use App\Models\Company;
+use App\Models\RCMS\Company;
 
 class CompanyController extends Controller
 {

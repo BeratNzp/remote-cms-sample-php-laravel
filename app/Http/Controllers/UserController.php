@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserUpdateRequest;
-use App\Models\Company;
-use App\Models\Department;
+use App\Models\RCMS\Company;
+use App\Models\RCMS\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;

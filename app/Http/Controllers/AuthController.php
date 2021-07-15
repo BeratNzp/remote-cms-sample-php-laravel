@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserLoginRequest;
-use App\Models\User;
+use App\Models\RCMS\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 

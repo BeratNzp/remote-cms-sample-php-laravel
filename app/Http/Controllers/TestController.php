@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\RCMS\Department;
 
 class TestController extends Controller
 {
