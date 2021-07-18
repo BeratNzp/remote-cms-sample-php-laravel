@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Country;
-use App\Models\City;
-use App\Models\County;
+use App\Models\RCMS\Country;
+use App\Models\RCMS\City;
+use App\Models\RCMS\County;
 
 class CountryCityCountySeeder extends Seeder
 {

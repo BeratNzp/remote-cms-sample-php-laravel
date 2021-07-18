@@ -20,7 +20,8 @@ class CreateCategoryTable extends Migration
             $table->id();
             $table->unsignedBigInteger('up_category_id')->nullable();
             $table->enum('type_id', CategoryType::getValues())->nullable();
-            $table->enum('can_sub_category_id', BooleanEnum::getValues())->default(BooleanEnum::False);
+            $table->enum('can_sub_category', BooleanEnum::getValues())->default(BooleanEnum::False);
+            $table->enum('main_category', BooleanEnum::getValues())->default(BooleanEnum::False);
             $table->string("title", 64);
             $table->timestamps();
             $table->softDeletes();

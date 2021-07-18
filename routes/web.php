@@ -70,6 +70,7 @@ Route::group(['prefix' => 'database'], function () {
 
 Route::group(['prefix' => 'category'], function () {
     Route::get('list', [CategoryController::class, 'list'])->middleware('auth')->name('category.list');
+    Route::get('list/{id}', [CategoryController::class, 'list'])->middleware('auth')->name('category.list_sub');
     Route::post('detail', [CategoryController::class, 'detail'])->middleware('auth')->name('category.detail');
     Route::post('categories_of_type', [CategoryController::class, 'categories_of_type'])->middleware('auth')->name('category.categories_of_type');
     Route::post('create', [CategoryController::class, 'create'])->middleware('auth')->name('category.create');

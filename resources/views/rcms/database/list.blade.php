@@ -248,7 +248,7 @@
                     $('#check_connection').html('<img width="16" height="16" src="{{ asset("images/loading.gif") }}"> Bağlantı testi yapılıyor... Lütfen bekleyin');
                 },
                 success: function (data) {
-                    if (data == true) {
+                    if (data === true) {
                         $('#submit_button').prop('disabled', false);
                         $('#migrate_button').prop('disabled', false);
                         $('#migrateItemAction').prop('disabled', false);
@@ -418,7 +418,6 @@
                 url: "{{ route("database.create") }}",
                 success: function (data) {
                     detail(data);
-                    $('#editItemButton').click();
                 },
                 error: function (data) {
                     var msg_field = data.responseJSON.message;

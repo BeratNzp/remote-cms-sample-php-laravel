@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Company;
-use App\Models\Department;
+use App\Models\RCMS\Company;
+use App\Models\RCMS\Department;
 use Illuminate\Support\Facades\Hash;
 
 class CompanyDepartmentSeeder extends Seeder

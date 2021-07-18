@@ -21,7 +21,8 @@ class Category extends Model
         'up_category_id',
         'type_id',
         'title',
-        'can_sub_category_id',
+        'can_sub_category',
+        'main_category',
     ];
 
     public function up_category()
