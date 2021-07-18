@@ -307,9 +307,9 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route("category.create") }}",
-                @if( Input::get('id') )
+                @if( isset($request->id) )
                 data: {
-                    up_category_id: {{ Input::get('id') }}
+                    up_category_id: {{ $request->id }}
                 },
                 @endif
                 success: function (data) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\RCMS;
 
 use App\Enums\ServiceType;
 use App\Models\RCMS\Company;

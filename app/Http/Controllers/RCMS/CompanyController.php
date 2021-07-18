@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\RCMS;
 
 use App\Http\Requests\CompanyUpdateRequest;
 use App\Models\RCMS\Department;

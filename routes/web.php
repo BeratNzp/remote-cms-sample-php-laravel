@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\DatabaseController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RCMS\AuthController;
+use App\Http\Controllers\RCMS\UserController;
+use App\Http\Controllers\RCMS\HomeController;
+use App\Http\Controllers\RCMS\CompanyController;
+use App\Http\Controllers\RCMS\DepartmentController;
+use App\Http\Controllers\RCMS\ServiceController;
+use App\Http\Controllers\RCMS\DatabaseController;
+use App\Http\Controllers\Client\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
