@@ -40,9 +40,9 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         DatabaseConnection::setConnection();
-        if($request->up_category_id) {
+        if ($request->up_category_id) {
             $up_category_id = Category::find($request->up_category_id)->up_category_id;
-        }else{
+        } else {
             $up_category_id = null;
         }
         $category = Category::create([

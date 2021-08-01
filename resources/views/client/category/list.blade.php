@@ -221,26 +221,84 @@
                     id: $('#editItemForm #id').val(),
                 },
                 success: function (data) {
-                    $('#editItemForm #up_category_id').html('');
-                    $('#editItemForm #up_category_id').val();
-                    /////////////
-                    var selected_up_category_id = '';
-                    if (data.selected_up_category)
-                        selected_up_category_id = data.selected_up_category.id;
-                    else
-                        selected_up_category_id = 0;
-                    var selected = '';
-                    $.each(data.categories, function (key, value) {
-                        if (value['id'] === selected_up_category_id && data.selected_category.title !== "Yeni Kategori") {
-                            selected = ' selected';
+                    var categories = data.categories;
+                    var current_title = '';
+
+                    function getSubItems(array, value, old_title, selected_up_category_id) {
+                        $.each(categories, function (key, subValue) {
+                            var selected = '';
+                            if (subValue['up_category_id'] === value['id']) {
+                                if (old_title)
+                                    current_title = old_title + ' > ' + subValue['title'];
+                                else
+                                    current_title = value['title'] + ' > ' + subValue['title'];
+                                if (subValue['id'] === selected_up_category_id) {
+                                    selected = ' selected';
+                                }
+                                $("#editItemForm #up_category_id").append($("<option " + selected + "></option>").attr("value", subValue['id']).text(current_title));
+                                getSubItems(array, subValue, current_title, selected_up_category_id);
+                            }
+                        });
+                    }
+
+                    $.each(categories, function (key, value) {
+                        if (value['up_category_id'] === null) {
+                            var selected_up_category_id = '';
+                            if (data.selected_up_category)
+                                selected_up_category_id = data.selected_up_category.id;
+                            else
+                                selected_up_category_id = 0;
+                            var selected = '';
+                            if (value['id'] === selected_up_category_id && data.selected_category.title !== "Yeni Kategori") {
+                                selected = ' selected';
+                            }
+                            $("#editItemForm #up_category_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
+                            getSubItems(categories, value, value['title'], selected_up_category_id);
                         }
-                        $("#editItemForm #up_category_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
-                        selected = '';
                     });
-                },
+                }
             });
-            return false;
         }
+
+        //$('#editItemForm #up_category_id').html('');
+        //$('#editItemForm #up_category_id').val();
+
+        /////////////
+        /*
+        var selected_up_category_id = '';
+        if (data.selected_up_category)
+            selected_up_category_id = data.selected_up_category.id;
+        else
+            selected_up_category_id = 0;
+        var selected = '';
+        var selected2 = '';
+        $.each(data.categories, function (key, value) {
+            if (value['id'] === selected_up_category_id && data.selected_category.title !== "Yeni Kategori") {
+                selected = ' selected';
+            }
+            if (value['main_category'] == 1) {
+                $("#editItemForm #up_category_id").append($("<option " + selected + "></option>").attr("value", value['id']).text(value['title']));
+                $.each(data.categories, function (key2, value2) {
+                    if (value['id'] === selected_up_category_id && data.selected_category.title !== "Yeni Kategori") {
+                        selected2 = ' selected';
+                    }
+                    if (value2['up_category_id'] == value['id']) {
+                        $("#editItemForm #up_category_id").append($("<option " + selected2 + "></option>").attr("value", value2['id']).text(value['title'] + ' > ' + value2['title']));
+                    }
+                });
+            }
+            selected = '';
+            selected2 = '';
+        });
+                }
+
+    ,
+    })
+    ;
+    return false;
+    }
+        */
+
     </script>
     <script type="text/javascript">
         function runDeleteModal(id, title) {
@@ -307,9 +365,9 @@
             $.ajax({
                 type: "POST",
                 url: "{{ route("category.create") }}",
-                @if( isset($request->id) )
+                @if( $up_category )
                 data: {
-                    up_category_id: {{ $request->id }}
+                    up_category_id: {{ $up_category->id }}
                 },
                 @endif
                 success: function (data) {
