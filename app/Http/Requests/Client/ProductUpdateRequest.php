@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Client;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DatabaseCheckRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,11 +19,8 @@ class DatabaseCheckRequest extends FormRequest
     public function attributes()
     {
         return [
-            'ipv4' => 'IPv4',
-            'port' => 'Port',
-            'username' => 'Kullanıcı Adı',
-            'password' => 'Parola',
-            'database' => 'Veritabanı',
+            'up_product_id' => 'Üst Ürün',
+            'title' => 'Başlık',
         ];
     }
 
@@ -35,11 +32,8 @@ class DatabaseCheckRequest extends FormRequest
     public function rules()
     {
         return [
-            'ipv4' => 'required|ipv4',
-            'port' => 'required|integer|between:1024,65535',
-            'username' => 'required',
-            'password' => '',
-            'database' => 'required',
+            'up_product_id' => '',
+            'title' => 'required',
         ];
     }
 }

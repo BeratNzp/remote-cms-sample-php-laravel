@@ -2,90 +2,72 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Enums\CategoryType;
-use App\Enums\BooleanEnum;
+use App\Models\Client\Product;
+use App\Http\Requests\Client\ProductUpdateRequest;
 use App\Models\Client\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\Client\CategoryUpdateRequest;
 use App\Helpers\DatabaseConnection;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     public function list(Request $request)
     {
         try {
-            $database = DatabaseConnection::setConnection(false);
-            if ($database === true) {
-                $messages = [
-                    'status' => 'success',
-                    'title' => 'Başarılı',
-                    'message' => 'Bağlantı kuruldu.',
-                ];
-            }else{
-                $messages = [
-                    'status' => 'danger',
-                    'title' => 'Hata',
-                    'message' => 'Bağlantı kurulamadı.',
-                ];
-            }
-            Category::where('type_id', null)->forceDelete();
-            if ($request->id) {
-                $categories = Category::where('up_category_id', $request->id)->get();
-                $up_category = Category::find($request->id);
+            DatabaseConnection::setConnection();
+            Product::where('title', "Yeni Ürün")->forceDelete();
+            if ($request->id > 0) {
+                $products = Product::where('up_product_id', $request->id)->get();
+                $up_product = Product::find($request->id);
             } else {
-                $categories = Category::where('main_category', BooleanEnum::fromValue(1))->get();
-                $up_category = null;
+                $products = Category::where('main_category', BooleanEnum::fromValue(1))->get();
+                $up_product = null;
             }
         } catch (\Exception $e) {
             $categories = null;
             $up_category = null;
         }
-        return view('client.category.list', compact([
-            'categories', $categories,
-            'up_category', $up_category,
+        return view('client.product.list', compact([
+            'products', $products,
+            'up_product', $up_product,
         ]));
     }
 
     public function create(Request $request)
     {
-        DatabaseConnection::setConnection(false);
-        if ($request->up_category_id) {
-            $up_category_id = Category::find($request->up_category_id)->id;
-            $up_category_type_id = Category::find($request->up_category_id)->type_id;
-        } elseif ($request->id) {
-            $up_category_id = Category::find($request->id)->id;
-            $up_category_type_id = $up_category_id->type_id;
+        DatabaseConnection::setConnection();
+        if ($request->up_product_id) {
+            $up_product_id = Category::find($request->up_product_id)->id;
         } else {
-            $up_category_id = null;
-            $up_category_type_id = null;
+            $up_product_id = null;
         }
-        $category = Category::create([
-            'up_category_id' => $up_category_id,
-            'type_id' => $up_category_type_id,
-            'title' => 'Yeni Kategori',
+        $product = Product::create([
+            'up_product_id' => $up_product_id,
+            'title' => 'Yeni Ürün',
         ]);
-        return $category->id;
+        return $product->id;
     }
 
-    public function update(CategoryUpdateRequest $request)
+    public function update(ProductUpdateRequest $request)
     {
-        DatabaseConnection::setConnection(false);
-        $category = Category::find($request->id);
+        /*
+        DatabaseConnection::setConnection();
+        $product = Product::find($request->id);
 
-        if ($request->can_sub_category == 'false') {
-            $sub_categories = Category::where('up_category_id', $category->id)->get();
+
+        if ($request->can_sub_product == 'false') {
+            $sub_products = Product::where('up_product_id', $product->id)->get();
             $messages = [
                 'status' => 'warning',
                 'title' => 'Kaydedilemedi',
-                'message' => 'Mevcut alt kategoriler bulundu.',
+                'message' => 'Mevcut varyantlar bulundu.',
             ];
-            if (count($sub_categories) > 0) {
-                return response()->json(['messages' => $messages, 'sub_categories' => $sub_categories]);
+            if (count($sub_products) > 0) {
+                return response()->json(['messages' => $messages, 'sub_products' => $sub_products]);
             }
-            $can_sub_category = 0;
+            $can_sub_product = 0;
         } elseif
-        ($request->can_sub_category == 'true')
-            $can_sub_category = 1;
+        ($request->can_sub_product == 'true')
+            $can_sub_product = 1;
 
 
         if ($request->main_category == 'false') {
@@ -96,14 +78,15 @@ class CategoryController extends Controller
             $up_category_id = null;
         }
 
-
-        if ($category->update([
+        $category->update([
             'up_category_id' => $up_category_id,
             'type_id' => CategoryType::fromValue(CategoryType::parseDatabase($request->type_id)),
             'title' => $request->title,
             'can_sub_category' => BooleanEnum::fromValue(BooleanEnum::parseDatabase($can_sub_category)),
             'main_category' => BooleanEnum::fromValue(BooleanEnum::parseDatabase($main_category)),
-        ])) {
+        ]);
+
+        if ($category) {
             $messages = [
                 'status' => 'success',
                 'title' => 'Kaydedildi',
@@ -117,12 +100,13 @@ class CategoryController extends Controller
             ];
         }
         return response()->json(['messages' => $messages]);
+        */
     }
 
     public function categories_of_type(Request $request)
     {
-        DatabaseConnection::setConnection(false);
-        if (isset($request->id)) {
+        DatabaseConnection::setConnection();
+        if(isset($request->id)) {
             $selected_category = Category::find($request->id);
             $selected_up_category = Category::find($selected_category->up_category_id);
             $categories = Category::where('can_sub_category', BooleanEnum::fromValue(1))->where('type_id', $request->type_id)->get()->except([$selected_category->id]);
@@ -131,7 +115,7 @@ class CategoryController extends Controller
                 'selected_category' => $selected_category,
                 'selected_up_category' => $selected_up_category,
             ]);
-        } else {
+        }else{
             $categories = Category::get();
             return response()->json([
                 'categories' => $categories,
@@ -141,7 +125,7 @@ class CategoryController extends Controller
 
     public function detail(Request $request)
     {
-        DatabaseConnection::setConnection(false);
+        DatabaseConnection::setConnection();
         $category = Category::find($request->id);
 
         $types = CategoryType::asSelectArray();
@@ -155,7 +139,7 @@ class CategoryController extends Controller
 
     public function delete(Request $request)
     {
-        DatabaseConnection::setConnection(false);
+        DatabaseConnection::setConnection();
         $category = Category::find($request->id);
         $sub_categories = Category::where('up_category_id', $category->id)->get();
         if (count($sub_categories) > 0) {

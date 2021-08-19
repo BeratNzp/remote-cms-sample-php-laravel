@@ -54,12 +54,6 @@ class DatabaseController extends Controller
                 'message' => 'Yönlendiriliyorsunuz.',
             ];
         }
-        /*
-        DatabaseConnection::setConnection();
-        Category::create([
-            'title' => 'func test',
-        ]);
-        */
         return response()->json(['messages' => $messages]);
     }
 
@@ -86,20 +80,28 @@ class DatabaseController extends Controller
         return $check_connection;
     }
 
-    public function migrate(Request $request)
+    public function migrate(DatabaseCheckRequest $request)
     {
-        DatabaseConnection::setConnection();
-        $migrate_result = Artisan::call('migrate:fresh', array('--path' => 'database/migrations/client/', '--database' => 'panel_user'));
-        if ($migrate_result == 0) {
-            $messages = [
-                'status' => 'success',
-                'title' => 'Sıfırlandı & Güncellendi',
-                'message' => 'Yönlendiriliyorsunuz.',
-            ];
-        } else {
+        $check_connection = DatabaseConnection::setConnection($request);
+        if ($check_connection === true) {
+            $migrate_result = Artisan::call('migrate:fresh', array('--path' => 'database/migrations/client/', '--database' => 'panel_user'));
+            if ($migrate_result == 0) {
+                $messages = [
+                    'status' => 'success',
+                    'title' => 'Sıfırlandı & Güncellendi',
+                    'message' => 'Yönlendiriliyorsunuz.',
+                ];
+            } else {
+                $messages = [
+                    'status' => 'warning',
+                    'title' => 'Güncellenemedi',
+                    'message' => 'Yönlendiriliyorsunuz.',
+                ];
+            }
+        }else{
             $messages = [
                 'status' => 'warning',
-                'title' => 'Güncellenemedi',
+                'title' => 'Bağlantı kurulamadı',
                 'message' => 'Yönlendiriliyorsunuz.',
             ];
         }

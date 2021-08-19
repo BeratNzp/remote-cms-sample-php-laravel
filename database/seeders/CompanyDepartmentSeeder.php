@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Database;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Models\RCMS\Company;
 use App\Models\RCMS\Department;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class CompanyDepartmentSeeder extends Seeder
 {
@@ -24,6 +26,22 @@ class CompanyDepartmentSeeder extends Seeder
         $department = Department::create([
             'company_id' => $company->id,
             'title' => 'Yönetim',
+        ]);
+        Database::create([
+            'company_id' => $company->id,
+            'ipv4' => '93.89.225.104',
+            'port' => '3306',
+            'username' => 'tkeportg_portg_panel_user',
+            'password' => 'GjE*5H&zut9_',
+            'database' => 'tkeportg_laravel',
+        ]);
+        Database::create([
+            'company_id' => $company->id,
+            'ipv4' => '127.0.0.1',
+            'port' => '3306',
+            'username' => 'root',
+            'password' => '',
+            'database' => 'portg_client_1',
         ]);
         Department::create([
             'company_id' => $company->id,

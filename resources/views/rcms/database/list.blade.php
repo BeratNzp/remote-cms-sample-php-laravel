@@ -318,7 +318,11 @@
             $.ajax({
                 type: "POST",
                 data: {
-                    id: id,
+                    ipv4: $('#editItemForm #ipv4').val(),
+                    port: $('#editItemForm #port').val(),
+                    username: $('#editItemForm #username').val(),
+                    password: $('#editItemForm #password').val(),
+                    database: $('#editItemForm #database').val(),
                 },
                 url: "{{ route("database.migrate") }}",
                 success: function (data) {

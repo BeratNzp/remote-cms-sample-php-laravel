@@ -10,6 +10,7 @@ use App\Http\Controllers\RCMS\DepartmentController;
 use App\Http\Controllers\RCMS\ServiceController;
 use App\Http\Controllers\RCMS\DatabaseController;
 use App\Http\Controllers\Client\CategoryController;
+use App\Http\Controllers\Client\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +77,14 @@ Route::group(['prefix' => 'category'], function () {
     Route::post('create', [CategoryController::class, 'create'])->middleware('auth')->name('category.create');
     Route::post('update', [CategoryController::class, 'update'])->middleware('auth')->name('category.update');
     Route::post('delete', [CategoryController::class, 'delete'])->middleware('auth')->name('category.delete');
+});
+
+Route::group(['prefix' => 'product'], function () {
+    Route::get('list', [ProductController::class, 'list'])->middleware('auth')->name('product.list');
+    Route::get('list/{id}', [ProductController::class, 'list'])->middleware('auth')->name('product.list_sub');
+    Route::post('create', [ProductController::class, 'create'])->middleware('auth')->name('product.create');
+    Route::post('update', [ProductController::class, 'update'])->middleware('auth')->name('product.update');
+    Route::post('delete', [ProductController::class, 'delete'])->middleware('auth')->name('product.delete');
 });
 
 Route::group(['prefix' => 'user'], function () {

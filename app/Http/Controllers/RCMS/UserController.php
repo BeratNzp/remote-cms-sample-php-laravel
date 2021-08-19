@@ -32,13 +32,15 @@ class UserController extends Controller
 
         // shuffle the result
         $random_string = str_shuffle($random_pin);
+        $password = Hash::make('123456');
+        $email = 'randomEmailForNewUsersOfRCMS@' . $random_string;
         $user = User::create([
-            'company_id' => auth()->user()->company()->id,
-            'department_id' => auth()->user()->department()->id,
+            'company_id' => auth()->user()->current_database->company->id,
+            'department_id' => auth()->user()->department->id,
             'first_name' => 'İsim',
             'last_name' => 'Soyisim',
-            'email' => 'randomEmailForNewUsersOfRCMS@' . $random_string,
-            'password' => '',
+            'email' => $email,
+            'password' => $password,
         ]);
         return $user->id;
     }

@@ -40,7 +40,7 @@ class DatabaseUpdateRequest extends FormRequest
             'ipv4' => 'required|ipv4',
             'port' => 'required|integer|between:1024,65535',
             'username' => 'required',
-            'password' => 'required',
+            'password' => '',
             'database' => 'required',
         ];
     }

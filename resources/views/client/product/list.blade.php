@@ -10,9 +10,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Kategorileri Listele
-                            <span>{{ isset($up_category) ? '['.$up_category->title.']' : '[Ana Kategoriler]' }}</span>
-                        </h2>
+                        <h2>Kategorileri Listele</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -22,20 +20,18 @@
                     <div class="x_content"> <!-- content -->
                         <div class="mb-2 mt-2">
                             @if(isset($up_category))
-                                <a class="btn btn-warning btn-sm text-black"
-                                   href="{{ isset($up_category->up_category) ? route("category.list_sub", $up_category->up_category->id) : route("category.list") }}">
-                                    < {{ isset($up_category->up_category) ? $up_category->up_category->title : 'Ana Kategoriler' }}
+                                <a class="btn btn-secondary btn-sm text-white"
+                                   href="{{ route("category.list_sub", $up_category->id) }}">
+                                    < {{ $up_category->title }}
                                 </a>
                             @endif
-                            <a class="btn btn-primary btn-sm text-white"
-                               href="{{ route("category.list") }}">
+                            <a class="btn btn-primary btn-sm text-white" href="{{ route("category.list") }}">
                                 Ana Kategoriler
                             </a>
                             <button class="btn btn-success btn-sm float-right" id="newItem">
                                 Yeni
                             </button>
-                            <button type="button" class="btn btn-warning text-black btn-sm float-right"
-                                    data-toggle="modal"
+                            <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal"
                                     data-target="#categoryTree" onclick="getCategoryTree();">
                                 Kategori Ağacını Göster
                             </button>
@@ -70,10 +66,9 @@
                                                 Düzenle
                                             </button>
                                             @if ($category->can_sub_category == 1)
-                                                <a href="{{ route("category.list_sub", $category->id) }}">
-                                                    <button class="btn btn-warning btn-sm float-right">
-                                                        Alt Kategoriler ({{ $category->count_of_sub_category() }})
-                                                    </button>
+                                                <a class="btn btn-secondary btn-sm float-right"
+                                                   href="{{ route("category.list_sub", $category->id) }}">
+                                                    Alt Kategoriler
                                                 </a>
                                             @endif
                                         </td>
@@ -248,7 +243,6 @@
                 success: function (data) {
                     var categories = data.categories;
                     var current_title = '';
-
                     function getSubItems(array, value, old_title, selected_up_category_id) {
                         $.each(categories, function (key, subValue) {
                             var selected = '';
@@ -259,14 +253,13 @@
                                     selected = ' selected';
                                 }
                                 categoryTreeBody += '<li>';
-                                categoryTreeBody += '<a href="{{ route("category.list") }}/' + subValue['id'] + '">' + '[' + subValue['id'] + '] ' + current_title + '</a>';
+                                categoryTreeBody += current_title;
                                 categoryTreeBody += '</li>';
                                 getSubItems(array, subValue, '', selected_up_category_id);
                                 categoryTreeBody += '</ul>';
                             }
                         });
                     }
-
                     $.each(categories, function (key, value) {
                         if (value['up_category_id'] === null) {
                             categoryTreeBody += '<ul>';
@@ -280,13 +273,13 @@
                                 selected = ' selected';
                             }
                             categoryTreeBody += '<li>';
-                            categoryTreeBody += '<a href="{{ route("category.list") }}/' + value['id'] + '">' + '[' + value['id'] + '] ' + value['title'] + '</a>';
+                            categoryTreeBody += value['title'];
                             getSubItems(categories, value, '', selected_up_category_id);
                             categoryTreeBody += '</li>';
                             categoryTreeBody += '</ul>';
                         }
                     });
-                    if (data.categories < 1)
+                    if(data.categories < 1)
                         categoryTreeBody += 'Kategori bulunamadı.';
                     $('#categoryTreeBody').html(categoryTreeBody);
                 },

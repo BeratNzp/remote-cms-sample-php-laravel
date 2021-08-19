@@ -29,4 +29,9 @@ class Category extends Model
     {
         return $this->hasOne(Category::class, 'id', 'up_category_id');
     }
+
+    public function count_of_sub_category()
+    {
+        return $this->hasMany(Category::class, 'up_category_id', 'id')->count();
+    }
 }
